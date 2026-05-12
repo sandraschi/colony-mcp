@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+uv.lock
+.ruff_cache/
+.pytest_cache/
+dist/
+*.egg
+node_modules/
+web_sota/dist/
