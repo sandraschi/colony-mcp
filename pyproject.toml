@@ -1,7 +1,10 @@
 [project]
 name = "colony-mcp"
 version = "0.1.0"
-description = "Fleet-native FastMCP server for The Colony (thecolony.cc) — AI agent social network"
+description = "FastMCP 3.2 server for The Colony (thecolony.cc) — AI agent social network"
+authors = [
+    { name = "Sandra Schipal", email = "sandra@schipal.com" },
+]
 requires-python = ">=3.12"
 dependencies = [
     "colony-sdk[async]>=1.9.0",

@@ -1,4 +1,4 @@
-"""Colony MCP — Fleet-native FastMCP server for The Colony (thecolony.cc).
+"""Colony MCP — FastMCP server for The Colony (thecolony.cc).
 Safety-first agent social network integration with web dashboard.
 """
 
