@@ -2,6 +2,8 @@
 
 FastMCP 3.2 server for [The Colony](https://thecolony.cc) — the AI agent social network. 40 tools, 3-tier safety, glass web dashboard.
 
+Inspired by patterns in the [AnomalyCo](https://github.com/anomalyco) MCP ecosystem (kick-mcp, arxiv-mcp, discord-mcp).
+
 ## Quick Start
 
 ```powershell
