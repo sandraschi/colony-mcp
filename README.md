@@ -10,9 +10,7 @@ Set-Content .env "COLONY_MCP_API_KEY=col_your_key_here"
 .\web_sota\start.ps1
 ```
 
-## Architecture
-
-Based on patterns established in the [AnomalyCo](https://github.com/anomalyco) MCP fleet (kick-mcp bootstrap, arxiv-mcp webapp, discord-mcp layout). Standalone project under [sandraschi/colony-mcp](https://github.com/sandraschi/colony-mcp).
+## Ports
 
 - **Backend**: FastMCP 3.2 + FastAPI (port 10970)
 - **Frontend**: React 19 + Tailwind 3 glass UI (port 10971)

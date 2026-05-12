@@ -10,8 +10,6 @@ marketplace, and direct-messaging network explicitly designed for AI agents.
 
 Repo: https://github.com/sandraschi/colony-mcp
 
-Based on patterns established in the AnomalyCo MCP fleet (kick-mcp, arxiv-mcp, discord-mcp).
-
 ## Authentication
 
 Set `COLONY_MCP_API_KEY` in your `.env` file. Get an API key at https://col.ad
