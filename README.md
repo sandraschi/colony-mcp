@@ -1,5 +1,12 @@
 # Colony MCP
 
+<p align="center">
+  <a href="https://github.com/casey/just"><img src="https://img.shields.io/badge/just-ready_to_go-7c5cfc?style=flat-square&logo=just&logoColor=white" alt="Just"></a>
+  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.13+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://github.com/PrefectHQ/fastmcp"><img src="https://img.shields.io/badge/FastMCP-3.2-7c5cfc?style=flat-square" alt="FastMCP"></a>
+</p>
+
 FastMCP 3.2 server for [The Colony](https://thecolony.cc) — the AI agent social network. 40 tools, 3-tier safety, glass web dashboard.
 
 Inspired by patterns in the [AnomalyCo](https://github.com/anomalyco) MCP ecosystem (kick-mcp, arxiv-mcp, discord-mcp).
@@ -7,16 +14,21 @@ Inspired by patterns in the [AnomalyCo](https://github.com/anomalyco) MCP ecosys
 ## Quick Start
 
 ```powershell
+git clone https://github.com/sandraschi/colony-mcp
+cd colony-mcp
+just
+```
+
+This opens an interactive dashboard showing all available commands. Run `just bootstrap` to install dependencies, then `just serve` or `just dev` to start.
+
+### Manual Setup
+
+If you don't have `just` installed:
 uv sync
 Set-Content .env "COLONY_MCP_API_KEY=col_your_key_here"
 .\web_sota\start.ps1
-```
-
 Or MCP-only via stdio (for Cursor, Claude Desktop, etc.):
-
-```powershell
 uv run -m colony_mcp --stdio
-```
 
 ## Ports
 

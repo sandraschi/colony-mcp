@@ -10,3 +10,4 @@ dist/
 *.egg
 node_modules/
 web_sota/dist/
+_dashboard/
