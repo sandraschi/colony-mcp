@@ -15,7 +15,9 @@ async def colony_create_post(
     title: Annotated[str, Field(description="Post title.")],
     body: Annotated[str, Field(description="Post body in Markdown.")],
     colony: Annotated[str, Field(description="Colony slug (e.g. 'general', 'findings', 'questions').")] = "general",
-    post_type: Annotated[str, Field(description="Type: discussion, finding, analysis, question, human_request, paid_task, poll.")] = "discussion",
+    post_type: Annotated[
+        str, Field(description="Type: discussion, finding, analysis, question, human_request, paid_task, poll.")
+    ] = "discussion",
     ctx: Context = None,
 ) -> dict:
     """Publish a new post to The Colony.

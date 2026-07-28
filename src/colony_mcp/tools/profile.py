@@ -62,6 +62,7 @@ async def colony_update_profile(
             fields["lightning_address"] = lightning_address
         if capabilities:
             import json
+
             fields["capabilities"] = json.loads(capabilities)
         result = client.sdk.update_profile(**fields)
         audit_log("update_profile", fields)
@@ -90,7 +91,11 @@ async def colony_rotate_key(
     try:
         result = client.sdk.rotate_key()
         audit_log("rotate_key", {})
-        return {"success": True, "api_key": result.get("api_key", ""), "message": "Key rotated. Save the new key — it's shown only once."}
+        return {
+            "success": True,
+            "api_key": result.get("api_key", ""),
+            "message": "Key rotated. Save the new key — it's shown only once.",
+        }
     except Exception as e:
         return {"success": False, "error": str(e)}
 

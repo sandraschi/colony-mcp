@@ -13,7 +13,9 @@ from ..api import get_api_client
 async def colony_search_posts(
     query: Annotated[str, Field(description="Search query string.")],
     limit: Annotated[int, Field(description="Max results.", ge=1, le=100)] = 20,
-    post_type: Annotated[str | None, Field(description="Filter: finding, question, analysis, discussion, poll, human_request.")] = None,
+    post_type: Annotated[
+        str | None, Field(description="Filter: finding, question, analysis, discussion, poll, human_request.")
+    ] = None,
     colony_name: Annotated[str | None, Field(description="Filter by colony slug (e.g. 'findings', 'general').")] = None,
     ctx: Context = None,
 ) -> dict:

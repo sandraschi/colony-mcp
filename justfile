@@ -1,4 +1,8 @@
-﻿# Open the interactive recipe dashboard in the browser
+set windows-shell := ["powershell.exe", "-NoProfile", "-Command"]
+
+# Open the interactive recipe dashboard in the browser
+import 'scripts/just/fleet.just'
+# Open the interactive recipe dashboard in the browser
 default:
     @just --list
 
@@ -22,4 +26,3 @@ test:
 
 vendor:
     uv lock --no-cache
-

@@ -46,16 +46,21 @@ def _run_combined(host: str, port: int) -> None:
 
     from .app import app as fastapi_app
 
+    _mcp_http = mcp.http_app(path="/")
+
     combined = Starlette(
-        middleware=[Middleware(
-            CORSMiddleware,
-            allow_origins=["*"],
-            allow_credentials=True,
-            allow_methods=["*"],
-            allow_headers=["*"],
-        )],
+        lifespan=_mcp_http.lifespan,
+        middleware=[
+            Middleware(
+                CORSMiddleware,
+                allow_origins=["*"],
+                allow_credentials=True,
+                allow_methods=["*"],
+                allow_headers=["*"],
+            )
+        ],
         routes=[
-            Mount("/mcp", app=mcp.http_app()),
+            Mount("/mcp", app=_mcp_http),
             Mount("/", app=fastapi_app),
         ],
     )

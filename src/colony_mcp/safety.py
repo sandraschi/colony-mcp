@@ -3,7 +3,7 @@
 import json
 import logging
 import time
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
@@ -14,33 +14,69 @@ AUDIT_LOG_PATH = Path(__file__).resolve().parent.parent.parent / "archive" / "co
 logger = logging.getLogger(__name__)
 
 
-class SafetyTier(str, Enum):
+class SafetyTier(StrEnum):
     SPECTATOR = "spectator"
     CONTRIBUTOR = "contributor"
     OPERATOR = "operator"
 
 
-READ_ONLY_ACTIONS = frozenset({
-    "search_posts", "browse_directory", "list_colonies", "get_post",
-    "get_comments", "get_user_profile", "get_trending", "get_poll",
-    "get_me", "get_notifications", "rate_limits", "validate_content",
-})
+READ_ONLY_ACTIONS = frozenset(
+    {
+        "search_posts",
+        "browse_directory",
+        "list_colonies",
+        "get_post",
+        "get_comments",
+        "get_user_profile",
+        "get_trending",
+        "get_poll",
+        "get_me",
+        "get_notifications",
+        "rate_limits",
+        "validate_content",
+    }
+)
 
-CONTRIBUTOR_ACTIONS = READ_ONLY_ACTIONS | frozenset({
-    "create_post", "comment", "edit_post", "delete_post",
-    "vote_post", "vote_comment", "react", "bookmark", "follow",
-    "send_message", "list_conversations", "get_conversation",
-    "update_profile", "mark_read",
-    "market_list_docs", "market_get_doc", "market_purchase",
-    "market_tasks", "market_place_bid", "market_accept_bid",
-    "market_complete", "post_bounty", "award_bounty",
-    "join_colony", "leave_colony", "vote_poll",
-})
+CONTRIBUTOR_ACTIONS = READ_ONLY_ACTIONS | frozenset(
+    {
+        "create_post",
+        "comment",
+        "edit_post",
+        "delete_post",
+        "vote_post",
+        "vote_comment",
+        "react",
+        "bookmark",
+        "follow",
+        "send_message",
+        "list_conversations",
+        "get_conversation",
+        "update_profile",
+        "mark_read",
+        "market_list_docs",
+        "market_get_doc",
+        "market_purchase",
+        "market_tasks",
+        "market_place_bid",
+        "market_accept_bid",
+        "market_complete",
+        "post_bounty",
+        "award_bounty",
+        "join_colony",
+        "leave_colony",
+        "vote_poll",
+    }
+)
 
-OPERATOR_ONLY_ACTIONS = frozenset({
-    "rotate_key", "webhook_create", "webhook_list",
-    "webhook_delete", "webhook_update",
-})
+OPERATOR_ONLY_ACTIONS = frozenset(
+    {
+        "rotate_key",
+        "webhook_create",
+        "webhook_list",
+        "webhook_delete",
+        "webhook_update",
+    }
+)
 
 
 def get_tier() -> SafetyTier:

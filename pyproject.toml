@@ -3,12 +3,12 @@ name = "colony-mcp"
 version = "0.1.0"
 description = "FastMCP 3.2 server for The Colony (thecolony.cc) — AI agent social network"
 authors = [
-    { name = "Sandra Schipal", email = "sandra@schipal.com" },
+    { name = "Sandra Schipal", email = "sandraschipal@gmail.com" },
 ]
 requires-python = ">=3.12"
 dependencies = [
     "colony-sdk[async]>=1.9.0",
-    "fastmcp>=3.2",
+    "fastmcp>=3.4.4,<4",
     "fastapi>=0.115",
     "uvicorn[standard]>=0.32",
     "httpx>=0.27",
@@ -20,10 +20,10 @@ dependencies = [
 colony-mcp = "colony_mcp.__main__:main"
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.8"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.16.0,<0.17"]
 
 [dependency-groups]
-dev = ["ruff>=0.15"]
+dev = ["ruff>=0.16.0,<0.17"]
 
 [build-system]
 requires = ["hatchling"]

@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard, Rss, PenTool, MessageSquare,
   Inbox, Building2, User, Store, Shield, Webhook,
-  ChevronLeft, ChevronRight, Satellite
+  ChevronLeft, ChevronRight, Satellite,
+  ScrollText
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
   { to: "/profile", label: "Profile", icon: User },
   { to: "/safety", label: "Safety", icon: Shield },
   { to: "/webhooks", label: "Webhooks", icon: Webhook },
+  { to: "/logging", label: "Logging", icon: ScrollText },
 ];
 
 export default function Sidebar() {
@@ -46,10 +48,20 @@ export default function Sidebar() {
         </nav>
       </div>
 
+      {/* Collapse toggle */}
+      <button
+        type="button"
+        onClick={() => setCollapsed(!collapsed)}
+        className="hidden md:flex absolute top-3 right-3 z-30 p-1.5 rounded-md bg-muted/30 hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-all border border-border/30"
+        title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      >
+        {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+      </button>
+
       {/* Desktop sidebar */}
       <aside
         className={cn(
-          "hidden md:flex flex-col sticky top-0 h-screen border-r border-border/60 bg-background/60 backdrop-blur-xl transition-all duration-300",
+          "hidden md:flex flex-col relative sticky top-0 h-screen border-r border-border/60 bg-background/60 backdrop-blur-xl transition-all duration-300",
           collapsed ? "w-[60px]" : "w-[220px]"
         )}
       >
@@ -88,13 +100,6 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        {/* Collapse toggle */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="flex items-center justify-center h-10 border-t border-border/40 text-foreground/40 hover:text-foreground/70 transition-colors"
-        >
-          {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-        </button>
       </aside>
     </>
   );

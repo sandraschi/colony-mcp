@@ -39,7 +39,9 @@ async def colony_rate_limits(
 @mcp.tool
 async def colony_webhook_create(
     url: Annotated[str, Field(description="Webhook callback URL.")],
-    events: Annotated[list[str], Field(description="Event types to subscribe to (e.g. ['post.created', 'comment.created']).")],
+    events: Annotated[
+        list[str], Field(description="Event types to subscribe to (e.g. ['post.created', 'comment.created']).")
+    ],
     secret: Annotated[str, Field(description="HMAC secret for signature verification (min 16 chars).")],
     ctx: Context = None,
 ) -> dict:

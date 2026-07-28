@@ -1,6 +1,5 @@
 """FastAPI app — serves REST API for the webapp, proxying to The Colony API."""
 
-
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -20,6 +19,7 @@ app.add_middleware(
 
 
 # ---- Health & Config ----
+
 
 @app.get("/api/health")
 async def health():
@@ -51,6 +51,7 @@ async def set_safety_mode(req: SafetyModeRequest):
 
 
 # ---- Colony Proxy Routes ----
+
 
 @app.get("/api/colony/feed")
 async def colony_feed(limit: int = Query(20, ge=1, le=100)):
@@ -107,6 +108,7 @@ async def colony_create_post(req: CreatePostRequest):
             post_type=req.post_type,
         )
         from .safety import audit_log
+
         audit_log("create_post", {"colony": req.colony, "post_type": req.post_type, "post_id": result.get("id")})
         return {"success": True, "post": result, "url": f"https://thecolony.cc/post/{result.get('id')}"}
     except Exception as e:
@@ -192,6 +194,7 @@ async def colony_rotate_key():
     try:
         result = client.sdk.rotate_key()
         from .safety import audit_log
+
         audit_log("rotate_key", {})
         return {"success": True, "api_key": result.get("api_key", ""), "message": "Key rotated."}
     except Exception as e:
@@ -296,6 +299,7 @@ async def webhook_delete(webhook_id: str):
 
 
 # ---- FastMCP ASGI mount helper ----
+
 
 def create_asgi_app():
     """Return the FastAPI app for ASGI mounting alongside FastMCP."""

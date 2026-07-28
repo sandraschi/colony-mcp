@@ -1,3 +1,13 @@
+
+## [Unreleased] — 2026-06-14
+
+### Added
+- Tauri 2.0 native wrapper with `bundle.resources` + `std::process::Command`
+- PyInstaller frozen backend embedded in NSIS installer
+- CUA-NSIS smoke test (`scripts/cua-smoke.py`, `scripts/cua-nsis-config.json`)
+- `just cua-nsis-test` recipe
+- Tauri CORS: `tauri://localhost` origins for WebView API access
+- `GET /api/v1/diagnostics` endpoint for CUA verification
 # Changelog
 
 ## [0.1.0] — 2026-05-11
@@ -33,3 +43,4 @@ Architecture patterns from the AnomalyCo MCP ecosystem:
 - kick-mcp — bootstrap pattern (`_mcp.py` singleton, tools portmanteau)
 - arxiv-mcp — webapp design (glass CSS, PageHero, CVA components)
 - discord-mcp — layout (collapsible sidebar, TopBar health badges)
+

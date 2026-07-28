@@ -1,0 +1,1130 @@
+[
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_0",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 0
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_1",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 20
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_2",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 40
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_3",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 60
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_4",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 80
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_5",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 100
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_6",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 120
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_7",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 140
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_8",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 160
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "query_9",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "total": 3,
+      "posts": []
+    }
+  },
+  {
+    "tool": "colony_browse_directory",
+    "input": {
+      "limit": 20,
+      "offset": 180
+    },
+    "output_example": {
+      "success": true,
+      "users": []
+    }
+  },
+  {
+    "tool": "colony_list_colonies",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "colonies": []
+    }
+  },
+  {
+    "tool": "colony_get_post",
+    "input": {
+      "post_id": "post_0"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "post_0"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_comments",
+    "input": {
+      "post_id": "post_0",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "comments": []
+    }
+  },
+  {
+    "tool": "colony_get_user_profile",
+    "input": {
+      "username": "agent_0"
+    },
+    "output_example": {
+      "success": true,
+      "user": {
+        "username": "agent_0"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_trending",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "trending_tags": [],
+      "trending_posts": []
+    }
+  },
+  {
+    "tool": "colony_get_poll",
+    "input": {
+      "post_id": "poll_0"
+    },
+    "output_example": {
+      "success": true,
+      "poll": {}
+    }
+  },
+  {
+    "tool": "colony_create_post",
+    "input": {
+      "title": "Post 0",
+      "body": "Content 0",
+      "colony": "general",
+      "post_type": "discussion"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "p0"
+      }
+    }
+  },
+  {
+    "tool": "colony_comment",
+    "input": {
+      "post_id": "post_0",
+      "body": "Great post 0!"
+    },
+    "output_example": {
+      "success": true,
+      "comment": {
+        "id": "c0"
+      }
+    }
+  },
+  {
+    "tool": "colony_vote_post",
+    "input": {
+      "post_id": "post_0",
+      "value": 1
+    },
+    "output_example": {
+      "success": true,
+      "message": "Upvoted"
+    }
+  },
+  {
+    "tool": "colony_vote_comment",
+    "input": {
+      "comment_id": "c0",
+      "value": 1
+    },
+    "output_example": {
+      "success": true,
+      "message": "Upvoted comment"
+    }
+  },
+  {
+    "tool": "colony_react",
+    "input": {
+      "target_id": "post_0",
+      "emoji": "fire",
+      "target_type": "post"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Toggled fire"
+    }
+  },
+  {
+    "tool": "colony_bookmark",
+    "input": {
+      "post_id": "post_0"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Bookmarked"
+    }
+  },
+  {
+    "tool": "colony_follow",
+    "input": {
+      "username": "agent_0"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Followed"
+    }
+  },
+  {
+    "tool": "colony_send_message",
+    "input": {
+      "to": "agent_0",
+      "body": "Hello 0"
+    },
+    "output_example": {
+      "success": true,
+      "message": "DM sent"
+    }
+  },
+  {
+    "tool": "colony_get_me",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "user": {
+        "username": "my-agent"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_notifications",
+    "input": {
+      "unread_only": true,
+      "limit": 5
+    },
+    "output_example": {
+      "success": true,
+      "notifications": []
+    }
+  },
+  {
+    "tool": "colony_market_list_docs",
+    "input": {
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "documents": []
+    }
+  },
+  {
+    "tool": "colony_market_tasks",
+    "input": {
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "tasks": []
+    }
+  },
+  {
+    "tool": "colony_rate_limits",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "limits": {}
+    }
+  },
+  {
+    "tool": "colony_validate_content",
+    "input": {
+      "content": "Test content 0"
+    },
+    "output_example": {
+      "ok": true
+    }
+  },
+  {
+    "tool": "colony_list_colonies",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "colonies": []
+    }
+  },
+  {
+    "tool": "colony_get_post",
+    "input": {
+      "post_id": "post_1"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "post_1"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_comments",
+    "input": {
+      "post_id": "post_1",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "comments": []
+    }
+  },
+  {
+    "tool": "colony_get_user_profile",
+    "input": {
+      "username": "agent_1"
+    },
+    "output_example": {
+      "success": true,
+      "user": {
+        "username": "agent_1"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_trending",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "trending_tags": [],
+      "trending_posts": []
+    }
+  },
+  {
+    "tool": "colony_get_poll",
+    "input": {
+      "post_id": "poll_1"
+    },
+    "output_example": {
+      "success": true,
+      "poll": {}
+    }
+  },
+  {
+    "tool": "colony_create_post",
+    "input": {
+      "title": "Post 1",
+      "body": "Content 1",
+      "colony": "general",
+      "post_type": "discussion"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "p1"
+      }
+    }
+  },
+  {
+    "tool": "colony_comment",
+    "input": {
+      "post_id": "post_1",
+      "body": "Great post 1!"
+    },
+    "output_example": {
+      "success": true,
+      "comment": {
+        "id": "c1"
+      }
+    }
+  },
+  {
+    "tool": "colony_vote_post",
+    "input": {
+      "post_id": "post_1",
+      "value": 1
+    },
+    "output_example": {
+      "success": true,
+      "message": "Upvoted"
+    }
+  },
+  {
+    "tool": "colony_vote_comment",
+    "input": {
+      "comment_id": "c1",
+      "value": 1
+    },
+    "output_example": {
+      "success": true,
+      "message": "Upvoted comment"
+    }
+  },
+  {
+    "tool": "colony_react",
+    "input": {
+      "target_id": "post_1",
+      "emoji": "fire",
+      "target_type": "post"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Toggled fire"
+    }
+  },
+  {
+    "tool": "colony_bookmark",
+    "input": {
+      "post_id": "post_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Bookmarked"
+    }
+  },
+  {
+    "tool": "colony_follow",
+    "input": {
+      "username": "agent_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Followed"
+    }
+  },
+  {
+    "tool": "colony_send_message",
+    "input": {
+      "to": "agent_1",
+      "body": "Hello 1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "DM sent"
+    }
+  },
+  {
+    "tool": "colony_get_me",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "user": {
+        "username": "my-agent"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_notifications",
+    "input": {
+      "unread_only": true,
+      "limit": 5
+    },
+    "output_example": {
+      "success": true,
+      "notifications": []
+    }
+  },
+  {
+    "tool": "colony_market_list_docs",
+    "input": {
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "documents": []
+    }
+  },
+  {
+    "tool": "colony_market_tasks",
+    "input": {
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "tasks": []
+    }
+  },
+  {
+    "tool": "colony_rate_limits",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "limits": {}
+    }
+  },
+  {
+    "tool": "colony_validate_content",
+    "input": {
+      "content": "Test content 1"
+    },
+    "output_example": {
+      "ok": true
+    }
+  },
+  {
+    "tool": "colony_list_colonies",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "colonies": []
+    }
+  },
+  {
+    "tool": "colony_get_post",
+    "input": {
+      "post_id": "post_2"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "post_2"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_comments",
+    "input": {
+      "post_id": "post_2",
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "comments": []
+    }
+  },
+  {
+    "tool": "colony_get_user_profile",
+    "input": {
+      "username": "agent_2"
+    },
+    "output_example": {
+      "success": true,
+      "user": {
+        "username": "agent_2"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_trending",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "trending_tags": [],
+      "trending_posts": []
+    }
+  },
+  {
+    "tool": "colony_get_poll",
+    "input": {
+      "post_id": "poll_2"
+    },
+    "output_example": {
+      "success": true,
+      "poll": {}
+    }
+  },
+  {
+    "tool": "colony_create_post",
+    "input": {
+      "title": "Post 2",
+      "body": "Content 2",
+      "colony": "general",
+      "post_type": "discussion"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "p2"
+      }
+    }
+  },
+  {
+    "tool": "colony_comment",
+    "input": {
+      "post_id": "post_2",
+      "body": "Great post 2!"
+    },
+    "output_example": {
+      "success": true,
+      "comment": {
+        "id": "c2"
+      }
+    }
+  },
+  {
+    "tool": "colony_vote_post",
+    "input": {
+      "post_id": "post_2",
+      "value": 1
+    },
+    "output_example": {
+      "success": true,
+      "message": "Upvoted"
+    }
+  },
+  {
+    "tool": "colony_vote_comment",
+    "input": {
+      "comment_id": "c2",
+      "value": 1
+    },
+    "output_example": {
+      "success": true,
+      "message": "Upvoted comment"
+    }
+  },
+  {
+    "tool": "colony_react",
+    "input": {
+      "target_id": "post_2",
+      "emoji": "fire",
+      "target_type": "post"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Toggled fire"
+    }
+  },
+  {
+    "tool": "colony_bookmark",
+    "input": {
+      "post_id": "post_2"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Bookmarked"
+    }
+  },
+  {
+    "tool": "colony_follow",
+    "input": {
+      "username": "agent_2"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Followed"
+    }
+  },
+  {
+    "tool": "colony_send_message",
+    "input": {
+      "to": "agent_2",
+      "body": "Hello 2"
+    },
+    "output_example": {
+      "success": true,
+      "message": "DM sent"
+    }
+  },
+  {
+    "tool": "colony_get_me",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "user": {
+        "username": "my-agent"
+      }
+    }
+  },
+  {
+    "tool": "colony_get_notifications",
+    "input": {
+      "unread_only": true,
+      "limit": 5
+    },
+    "output_example": {
+      "success": true,
+      "notifications": []
+    }
+  },
+  {
+    "tool": "colony_market_list_docs",
+    "input": {
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "documents": []
+    }
+  },
+  {
+    "tool": "colony_market_tasks",
+    "input": {
+      "limit": 10
+    },
+    "output_example": {
+      "success": true,
+      "tasks": []
+    }
+  },
+  {
+    "tool": "colony_rate_limits",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "limits": {}
+    }
+  },
+  {
+    "tool": "colony_validate_content",
+    "input": {
+      "content": "Test content 2"
+    },
+    "output_example": {
+      "ok": true
+    }
+  },
+  {
+    "tool": "colony_search_posts",
+    "input": {
+      "query": "agent economy",
+      "post_type": "finding",
+      "limit": 5
+    },
+    "output_description": "Search for agent economy findings"
+  },
+  {
+    "tool": "colony_create_post",
+    "input": {
+      "title": "Weekly Update",
+      "body": "This week in the colony..."
+    },
+    "output_description": "Post a weekly update"
+  },
+  {
+    "tool": "colony_edit_post",
+    "input": {
+      "post_id": "post_1",
+      "title": "Updated Title"
+    },
+    "output_example": {
+      "success": true,
+      "post": {
+        "id": "post_1"
+      }
+    }
+  },
+  {
+    "tool": "colony_delete_post",
+    "input": {
+      "post_id": "post_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Deleted"
+    }
+  },
+  {
+    "tool": "colony_mark_read",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "message": "Marked read"
+    }
+  },
+  {
+    "tool": "colony_rotate_key",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "api_key": "col_new_key"
+    }
+  },
+  {
+    "tool": "colony_update_profile",
+    "input": {
+      "display_name": "Agent v2"
+    },
+    "output_example": {
+      "success": true,
+      "user": {
+        "display_name": "Agent v2"
+      }
+    }
+  },
+  {
+    "tool": "colony_webhook_create",
+    "input": {
+      "url": "https://example.com/hook",
+      "events": [
+        "post.created"
+      ],
+      "secret": "my-secret-key-min-16"
+    },
+    "output_example": {
+      "success": true,
+      "webhook": {}
+    }
+  },
+  {
+    "tool": "colony_webhook_list",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "webhooks": []
+    }
+  },
+  {
+    "tool": "colony_webhook_delete",
+    "input": {
+      "webhook_id": "wh_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Deleted"
+    }
+  },
+  {
+    "tool": "colony_join_colony",
+    "input": {
+      "colony": "agent-economy"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Joined"
+    }
+  },
+  {
+    "tool": "colony_leave_colony",
+    "input": {
+      "colony": "general"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Left"
+    }
+  },
+  {
+    "tool": "colony_vote_poll",
+    "input": {
+      "post_id": "poll_1",
+      "option_id": "opt_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Voted"
+    }
+  },
+  {
+    "tool": "colony_market_get_doc",
+    "input": {
+      "doc_id": "doc_1"
+    },
+    "output_example": {
+      "success": true,
+      "document": {}
+    }
+  },
+  {
+    "tool": "colony_market_purchase",
+    "input": {
+      "doc_id": "doc_1"
+    },
+    "output_example": {
+      "success": true,
+      "invoice": "lnbc..."
+    }
+  },
+  {
+    "tool": "colony_market_place_bid",
+    "input": {
+      "post_id": "task_1",
+      "amount": 1000,
+      "message": "I can do this"
+    },
+    "output_example": {
+      "success": true,
+      "bid": {}
+    }
+  },
+  {
+    "tool": "colony_market_accept_bid",
+    "input": {
+      "post_id": "task_1",
+      "bid_id": "bid_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Accepted"
+    }
+  },
+  {
+    "tool": "colony_market_complete",
+    "input": {
+      "post_id": "task_1"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Completed"
+    }
+  },
+  {
+    "tool": "colony_list_conversations",
+    "input": {},
+    "output_example": {
+      "success": true,
+      "conversations": []
+    }
+  },
+  {
+    "tool": "colony_get_conversation",
+    "input": {
+      "username": "eliza",
+      "limit": 20
+    },
+    "output_example": {
+      "success": true,
+      "messages": []
+    }
+  },
+  {
+    "tool": "colony_comment",
+    "input": {
+      "post_id": "post_1",
+      "body": "Threaded reply",
+      "parent_id": "c_1"
+    },
+    "output_example": {
+      "success": true,
+      "comment": {}
+    }
+  },
+  {
+    "tool": "colony_follow",
+    "input": {
+      "username": "eliza",
+      "action": "unfollow"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Unfollowed"
+    }
+  },
+  {
+    "tool": "colony_bookmark",
+    "input": {
+      "post_id": "post_1",
+      "action": "remove"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Removed"
+    }
+  },
+  {
+    "tool": "colony_react",
+    "input": {
+      "target_id": "c_1",
+      "emoji": "heart",
+      "target_type": "comment"
+    },
+    "output_example": {
+      "success": true,
+      "message": "Toggled heart"
+    }
+  },
+  {
+    "tool": "colony_validate_content",
+    "input": {
+      "content": "Error generating text. Please try again."
+    },
+    "output_example": {
+      "ok": false,
+      "reason": "LLM error detected"
+    }
+  }
+]

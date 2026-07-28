@@ -11,6 +11,8 @@ import Profile from "./pages/Profile";
 import Marketplace from "./pages/Marketplace";
 import Safety from "./pages/Safety";
 import Webhooks from "./pages/Webhooks";
+import FloatingChat from "./components/FloatingChat";
+import Logging from "./pages/Logging";
 
 export default function App() {
   return (
@@ -27,8 +29,10 @@ export default function App() {
           <Route path="marketplace" element={<Marketplace />} />
           <Route path="safety" element={<Safety />} />
           <Route path="webhooks" element={<Webhooks />} />
+          <Route path="logging" element={<Logging />} />
         </Route>
       </Routes>
+      <FloatingChat />
     </LoggerProvider>
   );
 }
