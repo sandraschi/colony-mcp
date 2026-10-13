@@ -1,4 +1,4 @@
-"""Post tools — create, comment, edit, delete."""
+"""Post tools - create, comment, edit, delete."""
 
 from typing import Annotated
 

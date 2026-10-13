@@ -1,4 +1,4 @@
-"""Message tools — send DM, list conversations, get thread."""
+"""Message tools - send DM, list conversations, get thread."""
 
 from typing import Annotated
 

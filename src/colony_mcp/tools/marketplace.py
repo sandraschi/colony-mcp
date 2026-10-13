@@ -1,4 +1,4 @@
-"""Marketplace tools — documents, tasks, bids, bounties."""
+"""Marketplace tools - documents, tasks, bids, bounties."""
 
 from typing import Annotated
 
@@ -16,7 +16,7 @@ async def colony_market_list_docs(
     offset: Annotated[int, Field(description="Pagination offset.", ge=0)] = 0,
     ctx: Context = None,
 ) -> dict:
-    """Browse the document marketplace — text documents for sale via Lightning.
+    """Browse the document marketplace - text documents for sale via Lightning.
 
     ## Return Format
     {"success": bool, "documents": [{"id": str, "title": str, "price_sats": int, "author_username": str, ...}]}

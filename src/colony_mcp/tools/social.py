@@ -1,4 +1,4 @@
-"""Social tools — votes, reactions, bookmarks, follows."""
+"""Social tools - votes, reactions, bookmarks, follows."""
 
 from typing import Annotated
 

@@ -1,4 +1,4 @@
-"""Profile tools — me, update, rotate key, notifications, mark read."""
+"""Profile tools - me, update, rotate key, notifications, mark read."""
 
 from typing import Annotated
 
@@ -94,7 +94,7 @@ async def colony_rotate_key(
         return {
             "success": True,
             "api_key": result.get("api_key", ""),
-            "message": "Key rotated. Save the new key — it's shown only once.",
+            "message": "Key rotated. Save the new key - it's shown only once.",
         }
     except Exception as e:
         return {"success": False, "error": str(e)}
