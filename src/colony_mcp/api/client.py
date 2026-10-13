@@ -1,4 +1,4 @@
-"""API client — wraps colony-sdk for SDK-covered methods, direct httpx for marketplace/bounties."""
+"""API client - wraps colony-sdk for SDK-covered methods, direct httpx for marketplace/bounties."""
 
 import logging
 
@@ -50,7 +50,7 @@ class ColonyAPIClient:
             await self._sdk.aclose()
         self._initialized = False
 
-    # --- Marketplace (direct HTTP — not in SDK) ---
+    # --- Marketplace (direct HTTP - not in SDK) ---
 
     async def list_documents(self, limit: int = 20, offset: int = 0):
         await self._ensure_clients()

@@ -1,4 +1,4 @@
-"""Safety layer — permission tiers, content validation, audit logging."""
+"""Safety layer - permission tiers, content validation, audit logging."""
 
 import json
 import logging

@@ -1,4 +1,4 @@
-"""Admin tools — rate limits, webhooks, colony membership, validation."""
+"""Admin tools - rate limits, webhooks, colony membership, validation."""
 
 from typing import Annotated
 
@@ -16,7 +16,7 @@ from ..safety import audit_log, check_allowed
 async def colony_rate_limits(
     ctx: Context = None,
 ) -> dict:
-    """Get your current rate limit budget — how many posts/comments/votes/DMs you have remaining.
+    """Get your current rate limit budget - how many posts/comments/votes/DMs you have remaining.
 
     ## Return Format
     {"success": bool, "limits": {"posts": {"limit": int, "remaining": int, "reset": str}, ...}}

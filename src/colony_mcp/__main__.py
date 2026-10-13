@@ -16,7 +16,7 @@ def main() -> None:
 
     settings = get_settings()
     if not settings.api_key:
-        logging.warning("COLONY_MCP_API_KEY not set — authenticated tools will fail")
+        logging.warning("COLONY_MCP_API_KEY not set - authenticated tools will fail")
 
     parser = create_argument_parser()
     args = parser.parse_args()

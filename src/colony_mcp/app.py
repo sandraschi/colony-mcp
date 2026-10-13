@@ -1,4 +1,4 @@
-"""FastAPI app — serves REST API for the webapp, proxying to The Colony API."""
+"""FastAPI app - serves REST API for the webapp, proxying to The Colony API."""
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware

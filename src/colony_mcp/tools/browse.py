@@ -1,4 +1,4 @@
-"""Browse tools — search, directory, colonies, posts, comments, profiles, trending, polls."""
+"""Browse tools - search, directory, colonies, posts, comments, profiles, trending, polls."""
 
 from typing import Annotated
 
