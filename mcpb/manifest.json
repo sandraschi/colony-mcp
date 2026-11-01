@@ -6,17 +6,59 @@
   "author": { "name": "sandraschi" },
   "server": {
     "type": "python",
-    "entry_point": "run_server.py",
+    "entry_point": "src/colony_mcp/__main__.py",
     "mcp_config": {
       "command": "uv",
-      "args": ["run","--directory","${PWD}","run_server.py"],
+      "args": ["run", "--directory", "${__dirname}", "python", "-m", "colony_mcp"],
       "env": {
-        "PYTHONPATH": "${PWD}/src",
+        "PYTHONPATH": "${__dirname}/src",
         "PYTHONUNBUFFERED": "1"
       }
     }
   },
   "tools": [
-    { "name": "colony-mcp", "description": "FastMCP 3.2 server for The Colony (thecolony.cc) — AI agent social network" }
+    { "name": "colony_bookmark", "description": "colony_bookmark" },
+    { "name": "colony_browse_directory", "description": "colony_browse_directory" },
+    { "name": "colony_comment", "description": "colony_comment" },
+    { "name": "colony_create_post", "description": "colony_create_post" },
+    { "name": "colony_delete_post", "description": "colony_delete_post" },
+    { "name": "colony_edit_post", "description": "colony_edit_post" },
+    { "name": "colony_follow", "description": "colony_follow" },
+    { "name": "colony_get_comments", "description": "colony_get_comments" },
+    { "name": "colony_get_conversation", "description": "colony_get_conversation" },
+    { "name": "colony_get_me", "description": "colony_get_me" },
+    { "name": "colony_get_notifications", "description": "colony_get_notifications" },
+    { "name": "colony_get_poll", "description": "colony_get_poll" },
+    { "name": "colony_get_post", "description": "colony_get_post" },
+    { "name": "colony_get_trending", "description": "colony_get_trending" },
+    { "name": "colony_get_user_profile", "description": "colony_get_user_profile" },
+    { "name": "colony_join_colony", "description": "colony_join_colony" },
+    { "name": "colony_leave_colony", "description": "colony_leave_colony" },
+    { "name": "colony_list_colonies", "description": "colony_list_colonies" },
+    { "name": "colony_list_conversations", "description": "colony_list_conversations" },
+    { "name": "colony_mark_read", "description": "colony_mark_read" },
+    { "name": "colony_market_accept_bid", "description": "colony_market_accept_bid" },
+    { "name": "colony_market_complete", "description": "colony_market_complete" },
+    { "name": "colony_market_get_doc", "description": "colony_market_get_doc" },
+    { "name": "colony_market_list_docs", "description": "colony_market_list_docs" },
+    { "name": "colony_market_place_bid", "description": "colony_market_place_bid" },
+    { "name": "colony_market_purchase", "description": "colony_market_purchase" },
+    { "name": "colony_market_tasks", "description": "colony_market_tasks" },
+    { "name": "colony_rate_limits", "description": "colony_rate_limits" },
+    { "name": "colony_react", "description": "colony_react" },
+    { "name": "colony_rotate_key", "description": "colony_rotate_key" },
+    { "name": "colony_search_posts", "description": "colony_search_posts" },
+    { "name": "colony_send_message", "description": "colony_send_message" },
+    { "name": "colony_update_profile", "description": "colony_update_profile" },
+    { "name": "colony_validate_content", "description": "colony_validate_content" },
+    { "name": "colony_vote_comment", "description": "colony_vote_comment" },
+    { "name": "colony_vote_poll", "description": "colony_vote_poll" },
+    { "name": "colony_vote_post", "description": "colony_vote_post" },
+    { "name": "colony_webhook_create", "description": "colony_webhook_create" },
+    { "name": "colony_webhook_delete", "description": "colony_webhook_delete" },
+    { "name": "colony_webhook_list", "description": "colony_webhook_list" },
+    { "name": "colony_help", "description": "colony_help" },
+    { "name": "colony_status", "description": "colony_status" },
+    { "name": "colony_shutdown", "description": "colony_shutdown" }
   ]
 }

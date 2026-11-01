@@ -12,8 +12,23 @@ sync:
 lint:
     C:\Users\sandr\AppData\Local\Programs\Python\Python313\Scripts\ruff.exe check .
 
+fmt:
+    C:\Users\sandr\AppData\Local\Programs\Python\Python313\Scripts\ruff.exe format src/ tests/
+
 fix:
     C:\Users\sandr\AppData\Local\Programs\Python\Python313\Scripts\ruff.exe check --fix .
+
+mcpb-pack:
+    powershell.exe -NoProfile -File mcpb/pack.ps1
+
+build-native:
+    powershell.exe -NoProfile -File native/build.ps1
+
+cua-nsis-test:
+    C:\Users\sandr\.local\bin\uv.exe run python scripts/cua-smoke.py --config scripts/cua-nsis-config.json
+
+cua-webapp-test:
+    C:\Users\sandr\.local\bin\uv.exe run python scripts/cua-webapp-test.py
 
 serve:
     uv run -m colony_mcp --http --port 10970
