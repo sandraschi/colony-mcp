@@ -14,7 +14,7 @@ from ..safety import audit_log, check_allowed
 
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_rate_limits(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get your current rate limit budget - how many posts/comments/votes/DMs you have remaining.
 
@@ -43,7 +43,7 @@ async def colony_webhook_create(
         list[str], Field(description="Event types to subscribe to (e.g. ['post.created', 'comment.created']).")
     ],
     secret: Annotated[str, Field(description="HMAC secret for signature verification (min 16 chars).")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Register a webhook for real-time event notifications from The Colony.
 
@@ -59,7 +59,7 @@ async def colony_webhook_create(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.create_webhook(url, events, secret)
+        result = await client.sdk.create_webhook(url, events, secret)
         audit_log("webhook_create", {"url": url})
         return {"success": True, "webhook": result}
     except Exception as e:
@@ -68,7 +68,7 @@ async def colony_webhook_create(
 
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_webhook_list(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """List your registered webhooks.
 
@@ -84,7 +84,7 @@ async def colony_webhook_list(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_webhooks()
+        result = await client.sdk.get_webhooks()
         webhooks = result if isinstance(result, list) else [result]
         return {"success": True, "webhooks": webhooks}
     except Exception as e:
@@ -94,7 +94,7 @@ async def colony_webhook_list(
 @mcp.tool(annotations={"destructiveHint": True})
 async def colony_webhook_delete(
     webhook_id: Annotated[str, Field(description="Webhook UUID to delete.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Delete a webhook registration.
 
@@ -110,7 +110,7 @@ async def colony_webhook_delete(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.delete_webhook(webhook_id)
+        await client.sdk.delete_webhook(webhook_id)
         audit_log("webhook_delete", {"webhook_id": webhook_id})
         return {"success": True, "message": f"Webhook {webhook_id} deleted."}
     except Exception as e:
@@ -123,7 +123,7 @@ async def colony_webhook_delete(
 @mcp.tool
 async def colony_join_colony(
     colony: Annotated[str, Field(description="Colony name or UUID to join.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Join a colony by name or UUID.
 
@@ -139,7 +139,7 @@ async def colony_join_colony(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.join_colony(colony)
+        await client.sdk.join_colony(colony)
         audit_log("join_colony", {"colony": colony})
         return {"success": True, "message": f"Joined colony: {colony}."}
     except Exception as e:
@@ -149,7 +149,7 @@ async def colony_join_colony(
 @mcp.tool
 async def colony_leave_colony(
     colony: Annotated[str, Field(description="Colony name or UUID to leave.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Leave a colony by name or UUID.
 
@@ -165,7 +165,7 @@ async def colony_leave_colony(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.leave_colony(colony)
+        await client.sdk.leave_colony(colony)
         audit_log("leave_colony", {"colony": colony})
         return {"success": True, "message": f"Left colony: {colony}."}
     except Exception as e:
@@ -178,7 +178,7 @@ async def colony_leave_colony(
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_validate_content(
     content: Annotated[str, Field(description="Text content to validate.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Validate LLM-generated content before posting. Catches model errors, chat artifacts, empty output.
 
@@ -200,7 +200,7 @@ async def colony_validate_content(
 async def colony_vote_poll(
     post_id: Annotated[str, Field(description="Post UUID with poll.")],
     option_id: Annotated[str, Field(description="Option UUID to vote for.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Vote on a poll option.
 
@@ -216,7 +216,7 @@ async def colony_vote_poll(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.vote_poll(post_id, option_id)
+        await client.sdk.vote_poll(post_id, option_id=option_id)
         audit_log("vote_poll", {"post_id": post_id, "option_id": option_id})
         return {"success": True, "message": f"Voted on poll {post_id}."}
     except Exception as e:

@@ -11,7 +11,16 @@ app = FastAPI(title="Colony MCP Webapp", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://127.0.0.1:10970",
+        "http://127.0.0.1:10971",
+        "http://localhost:10970",
+        "http://localhost:10971",
+        "tauri://localhost",
+        "http://tauri.localhost",
+        "https://tauri.localhost",
+    ],
+    allow_origin_regex=r"https?://(127\.0\.0\.1|localhost|goliath)(:\d+)?|https?://.*\.ts\.net(:\d+)?|tauri://.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -58,7 +67,7 @@ async def colony_feed(limit: int = Query(20, ge=1, le=100)):
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_posts(limit=limit)
+        result = await client.sdk.get_posts(limit=limit)
         posts = result if isinstance(result, list) else result.get("posts", [])
         return {"success": True, "posts": posts}
     except Exception as e:
@@ -75,9 +84,9 @@ async def colony_posts(
     await client._ensure_clients()
     try:
         if query:
-            result = client.sdk.search(query, limit=limit)
+            result = await client.sdk.search(query, limit=limit)
             return {"success": True, "posts": result}
-        result = client.sdk.get_posts(colony=colony or None, limit=limit)
+        result = await client.sdk.get_posts(colony=colony or None, limit=limit)
         posts = result if isinstance(result, list) else result.get("posts", [])
         return {"success": True, "posts": posts}
     except Exception as e:
@@ -101,7 +110,7 @@ async def colony_create_post(req: CreatePostRequest):
         raise HTTPException(status_code=400, detail=f"Content validation failed: {validation['reason']}")
 
     try:
-        result = client.sdk.create_post(
+        result = await client.sdk.create_post(
             title=req.title,
             body=req.body,
             colony=req.colony,
@@ -120,7 +129,7 @@ async def colony_get_post(post_id: str):
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_post(post_id)
+        result = await client.sdk.get_post(post_id)
         return {"success": True, "post": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -131,7 +140,7 @@ async def colony_get_comments(post_id: str, limit: int = Query(50, ge=1, le=200)
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_comments(post_id, page=1)
+        result = await client.sdk.get_comments(post_id, page=1)
         comments = result if isinstance(result, list) else result.get("comments", [])
         return {"success": True, "comments": comments[:limit]}
     except Exception as e:
@@ -143,7 +152,7 @@ async def colony_list_colonies():
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_colonies()
+        result = await client.sdk.get_colonies()
         colonies = result if isinstance(result, list) else result.get("colonies", [])
         return {"success": True, "colonies": colonies}
     except Exception as e:
@@ -159,7 +168,7 @@ async def colony_join(req: ColonyAction):
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.join_colony(req.colony)
+        await client.sdk.join_colony(req.colony)
         return {"success": True, "message": f"Joined {req.colony}"}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -170,7 +179,7 @@ async def colony_leave(req: ColonyAction):
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.leave_colony(req.colony)
+        await client.sdk.leave_colony(req.colony)
         return {"success": True, "message": f"Left {req.colony}"}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -181,7 +190,7 @@ async def colony_get_me():
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_me()
+        result = await client.sdk.get_me()
         return {"success": True, "user": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -192,7 +201,7 @@ async def colony_rotate_key():
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.rotate_key()
+        result = await client.sdk.rotate_key()
         from .safety import audit_log
 
         audit_log("rotate_key", {})
@@ -219,7 +228,7 @@ async def colony_notifications(unread_only: bool = Query(False), limit: int = Qu
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_notifications(unread_only=unread_only)
+        result = await client.sdk.get_notifications(unread_only=unread_only)
         notifs = result if isinstance(result, list) else result.get("notifications", [])
         return {"success": True, "notifications": notifs[:limit]}
     except Exception as e:
@@ -269,7 +278,7 @@ async def webhook_list():
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_webhooks()
+        result = await client.sdk.get_webhooks()
         webhooks = result if isinstance(result, list) else [result]
         return {"success": True, "webhooks": webhooks}
     except Exception as e:
@@ -281,7 +290,7 @@ async def webhook_create(req: WebhookCreate):
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.create_webhook(req.url, req.events, req.secret)
+        result = await client.sdk.create_webhook(req.url, req.events, req.secret)
         return {"success": True, "webhook": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -292,10 +301,258 @@ async def webhook_delete(webhook_id: str):
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.delete_webhook(webhook_id)
+        await client.sdk.delete_webhook(webhook_id)
         return {"success": True, "message": f"Webhook {webhook_id} deleted."}
     except Exception as e:
         return {"success": False, "error": str(e)}
+
+
+# ---- Fleet standard routes (capabilities, skills, LLM proxy, diagnostics, logs) ----
+
+TOOL_NAMES = [
+    "colony_search_posts",
+    "colony_browse_directory",
+    "colony_list_colonies",
+    "colony_get_post",
+    "colony_get_comments",
+    "colony_get_user_profile",
+    "colony_get_trending",
+    "colony_get_poll",
+    "colony_create_post",
+    "colony_comment",
+    "colony_edit_post",
+    "colony_delete_post",
+    "colony_vote_post",
+    "colony_vote_comment",
+    "colony_react",
+    "colony_bookmark",
+    "colony_follow",
+    "colony_send_message",
+    "colony_list_conversations",
+    "colony_get_conversation",
+    "colony_get_me",
+    "colony_update_profile",
+    "colony_rotate_key",
+    "colony_get_notifications",
+    "colony_mark_read",
+    "colony_market_list_docs",
+    "colony_market_get_doc",
+    "colony_market_purchase",
+    "colony_market_tasks",
+    "colony_market_place_bid",
+    "colony_market_accept_bid",
+    "colony_market_complete",
+    "colony_rate_limits",
+    "colony_webhook_create",
+    "colony_webhook_list",
+    "colony_webhook_delete",
+    "colony_join_colony",
+    "colony_leave_colony",
+    "colony_vote_poll",
+    "colony_validate_content",
+    "colony_help",
+    "colony_status",
+    "colony_shutdown",
+]
+
+
+@app.get("/api/status")
+async def status():
+    settings = get_settings()
+    return {
+        "status": "ok",
+        "version": "0.1.0",
+        "safety_mode": settings.safety_mode,
+        "tool_count": len(TOOL_NAMES),
+        "port": settings.port,
+    }
+
+
+@app.get("/api/capabilities")
+async def capabilities():
+    return {
+        "success": True,
+        "message": "Colony MCP capabilities",
+        "data": {"tools": TOOL_NAMES, "tool_count": len(TOOL_NAMES), "version": "0.1.0"},
+    }
+
+
+@app.get("/api/skills")
+async def skills():
+    return [
+        {
+            "name": "colony-expert",
+            "description": "Browse, post, vote, DM and trade on The Colony agent social network (40 tools).",
+        }
+    ]
+
+
+async def _probe_llm(base_url: str, path: str) -> dict:
+    import httpx as _httpx
+
+    try:
+        async with _httpx.AsyncClient(timeout=2.0) as c:
+            r = await c.get(f"{base_url}{path}")
+            if r.status_code == 200:
+                return {"reachable": True, "data": r.json()}
+    except Exception:
+        pass
+    return {"reachable": False, "data": None}
+
+
+@app.get("/api/llm/discover")
+async def llm_discover():
+    ollama = await _probe_llm("http://127.0.0.1:11434", "/api/tags")
+    lmstudio = await _probe_llm("http://127.0.0.1:1234", "/v1/models")
+    return {
+        "ollama": {"detected": ollama["reachable"]},
+        "lmstudio": {"detected": lmstudio["reachable"]},
+    }
+
+
+@app.get("/api/llm/providers")
+async def llm_providers():
+    disc = await llm_discover()
+    providers = []
+    if disc["ollama"]["detected"]:
+        providers.append({"id": "ollama", "label": "Ollama (local)", "detected": True, "models": []})
+    if disc["lmstudio"]["detected"]:
+        providers.append({"id": "lmstudio", "label": "LM Studio (local)", "detected": True, "models": []})
+    if not providers:
+        providers.append({"id": "ollama", "label": "Ollama (local)", "detected": False, "models": []})
+    return {"providers": providers}
+
+
+@app.get("/api/llm/models")
+async def llm_models(provider: str = "ollama"):
+    if provider == "lmstudio":
+        probe = await _probe_llm("http://127.0.0.1:1234", "/v1/models")
+        if probe["reachable"]:
+            return {"models": [m.get("id", "") for m in probe["data"].get("data", [])]}
+        return {"models": []}
+    probe = await _probe_llm("http://127.0.0.1:11434", "/api/tags")
+    if probe["reachable"]:
+        return {"models": [m.get("name", "") for m in probe["data"].get("models", [])]}
+    return {"models": []}
+
+
+class LlmChatRequest(BaseModel):
+    provider: str = "ollama"
+    model: str = ""
+    prompt: str = ""
+    system: str | None = None
+
+
+@app.post("/api/llm/chat")
+async def llm_chat(req: LlmChatRequest):
+    import httpx as _httpx
+
+    if req.provider == "lmstudio":
+        try:
+            async with _httpx.AsyncClient(timeout=120.0) as c:
+                r = await c.post(
+                    "http://127.0.0.1:1234/v1/chat/completions",
+                    json={
+                        "model": req.model,
+                        "messages": [
+                            {"role": "system", "content": req.system or "You are a helpful assistant."},
+                            {"role": "user", "content": req.prompt},
+                        ],
+                    },
+                )
+                r.raise_for_status()
+                data = r.json()
+                return {"response": data["choices"][0]["message"]["content"]}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    try:
+        async with _httpx.AsyncClient(timeout=120.0) as c:
+            r = await c.post(
+                "http://127.0.0.1:11434/api/generate",
+                json={"model": req.model, "prompt": req.prompt, "system": req.system, "stream": False},
+            )
+            r.raise_for_status()
+            return {"response": r.json().get("response", "")}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.get("/api/llm/onboarding")
+async def llm_onboarding():
+    disc = await llm_discover()
+    if disc["ollama"]["detected"] or disc["lmstudio"]["detected"]:
+        return {"ready": True, "message": "Local LLM detected."}
+    return {
+        "ready": False,
+        "message": "No local LLM detected. Install Ollama (http://127.0.0.1:11434) or LM Studio (http://127.0.0.1:1234).",
+        "recommended": "ollama",
+    }
+
+
+@app.get("/api/v1/diagnostics")
+async def diagnostics():
+    import platform
+    import sys
+
+    settings = get_settings()
+    routes = sorted({getattr(r, "path", "") for r in app.routes if getattr(r, "path", "").startswith("/api")})
+    return {
+        "success": True,
+        "message": "Colony MCP diagnostics",
+        "data": {
+            "version": "0.1.0",
+            "tool_count": len(TOOL_NAMES),
+            "safety_mode": settings.safety_mode,
+            "port": settings.port,
+            "python": sys.version.split()[0],
+            "platform": platform.platform(),
+            "routes": routes,
+        },
+    }
+
+
+_LOG_BUFFER: list = []
+
+
+@app.get("/api/logs")
+async def logs_list(limit: int = Query(50, ge=1, le=200), offset: int = Query(0, ge=0)):
+    total = len(_LOG_BUFFER)
+    return {"entries": _LOG_BUFFER[offset : offset + limit], "total": total}
+
+
+@app.get("/api/logs/export")
+async def logs_export(format: str = Query("json")):
+    from fastapi.responses import PlainTextResponse
+
+    if format == "csv":
+        lines = ["id,timestamp,level,kind,detail"]
+        for e in _LOG_BUFFER:
+            lines.append(
+                f"{e.get('id', '')},{e.get('timestamp', '')},{e.get('level', '')},{e.get('kind', '')},{e.get('detail', '')}"
+            )
+        return PlainTextResponse("\n".join(lines), media_type="text/csv")
+    return {"entries": _LOG_BUFFER, "total": len(_LOG_BUFFER)}
+
+
+@app.delete("/api/logs")
+async def logs_clear():
+    _LOG_BUFFER.clear()
+    return {"success": True, "message": "Log buffer cleared."}
+
+
+@app.post("/api/shutdown")
+async def shutdown():
+    import os
+    import threading
+
+    def _exit():
+        import time
+
+        time.sleep(0.5)
+        os._exit(0)
+
+    threading.Thread(target=_exit, daemon=True).start()
+    return {"success": True, "message": "Shutting down in ~500 ms."}
 
 
 # ---- FastMCP ASGI mount helper ----

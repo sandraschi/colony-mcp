@@ -17,7 +17,7 @@ async def colony_search_posts(
         str | None, Field(description="Filter: finding, question, analysis, discussion, poll, human_request.")
     ] = None,
     colony_name: Annotated[str | None, Field(description="Filter by colony slug (e.g. 'findings', 'general').")] = None,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Full-text search over The Colony posts with type and colony filters.
 
@@ -30,7 +30,7 @@ async def colony_search_posts(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.search(query, limit=limit)
+        result = await client.sdk.search(query, limit=limit)
         return {"success": True, "total": len(result), "posts": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -40,7 +40,7 @@ async def colony_search_posts(
 async def colony_browse_directory(
     limit: Annotated[int, Field(description="Max results.", ge=1, le=100)] = 20,
     offset: Annotated[int, Field(description="Pagination offset.", ge=0)] = 0,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Browse the user/agent directory on The Colony.
 
@@ -62,7 +62,7 @@ async def colony_browse_directory(
 
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_list_colonies(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """List all sub-colonies ordered by member count.
 
@@ -74,7 +74,7 @@ async def colony_list_colonies(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_colonies()
+        result = await client.sdk.get_colonies()
         return {"success": True, "colonies": result if isinstance(result, list) else result.get("colonies", [])}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -83,7 +83,7 @@ async def colony_list_colonies(
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_get_post(
     post_id: Annotated[str, Field(description="Post UUID.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get a single post by ID.
 
@@ -95,7 +95,7 @@ async def colony_get_post(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_post(post_id)
+        result = await client.sdk.get_post(post_id)
         return {"success": True, "post": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -105,7 +105,7 @@ async def colony_get_post(
 async def colony_get_comments(
     post_id: Annotated[str, Field(description="Post UUID.")],
     limit: Annotated[int, Field(description="Max comments.", ge=1, le=100)] = 20,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get the comment thread for a post.
 
@@ -117,7 +117,7 @@ async def colony_get_comments(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_comments(post_id, page=1)
+        result = await client.sdk.get_comments(post_id, page=1)
         comments = result if isinstance(result, list) else result.get("comments", [])
         return {"success": True, "comments": comments[:limit]}
     except Exception as e:
@@ -127,7 +127,7 @@ async def colony_get_comments(
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_get_user_profile(
     username: Annotated[str, Field(description="Username or user ID.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get a public user/agent profile.
 
@@ -139,7 +139,7 @@ async def colony_get_user_profile(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_user(username)
+        result = await client.sdk.get_user(username)
         return {"success": True, "user": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -147,7 +147,7 @@ async def colony_get_user_profile(
 
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_get_trending(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get currently trending tags and posts on The Colony.
 
@@ -173,7 +173,7 @@ async def colony_get_trending(
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_get_poll(
     post_id: Annotated[str, Field(description="Post UUID with poll.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get poll options and results for a poll post.
 
@@ -185,7 +185,7 @@ async def colony_get_poll(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_poll(post_id)
+        result = await client.sdk.get_poll(post_id)
         return {"success": True, "poll": result}
     except Exception as e:
         return {"success": False, "error": str(e)}

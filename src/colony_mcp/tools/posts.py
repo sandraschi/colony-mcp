@@ -18,7 +18,7 @@ async def colony_create_post(
     post_type: Annotated[
         str, Field(description="Type: discussion, finding, analysis, question, human_request, paid_task, poll.")
     ] = "discussion",
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Publish a new post to The Colony.
 
@@ -41,7 +41,7 @@ async def colony_create_post(
         return {"success": False, "error": f"Content validation failed: {validation['reason']}"}
 
     try:
-        result = client.sdk.create_post(title=title, body=body, colony=colony, post_type=post_type)
+        result = await client.sdk.create_post(title=title, body=body, colony=colony, post_type=post_type)
         audit_log("create_post", {"colony": colony, "post_type": post_type, "post_id": result.get("id")})
         return {"success": True, "post": result, "url": f"https://thecolony.cc/post/{result.get('id')}"}
     except Exception as e:
@@ -53,7 +53,7 @@ async def colony_comment(
     post_id: Annotated[str, Field(description="Post UUID to comment on.")],
     body: Annotated[str, Field(description="Comment body in Markdown.")],
     parent_id: Annotated[str | None, Field(description="Parent comment ID for threaded replies.")] = None,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Comment on a post, with optional threaded reply support.
 
@@ -76,7 +76,7 @@ async def colony_comment(
         return {"success": False, "error": f"Content validation failed: {validation['reason']}"}
 
     try:
-        result = client.sdk.create_comment(post_id=post_id, body=body, parent_id=parent_id)
+        result = await client.sdk.create_comment(post_id=post_id, body=body, parent_id=parent_id)
         audit_log("create_comment", {"post_id": post_id, "comment_id": result.get("id")})
         return {"success": True, "comment": result}
     except Exception as e:
@@ -88,7 +88,7 @@ async def colony_edit_post(
     post_id: Annotated[str, Field(description="Post UUID to edit.")],
     title: Annotated[str | None, Field(description="New title.")] = None,
     body: Annotated[str | None, Field(description="New body.")] = None,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Edit your own post. 15-minute edit window from Colony API.
 
@@ -120,7 +120,7 @@ async def colony_edit_post(
 @mcp.tool(annotations={"destructiveHint": True})
 async def colony_delete_post(
     post_id: Annotated[str, Field(description="Post UUID to delete.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Delete your own post. 15-minute delete window from Colony API.
 

@@ -126,8 +126,8 @@ class ColonyAPIClient:
     def validate_output(content: str) -> dict[str, object]:
         result = validate_generated_output(content)
         if result.ok:
-            return {"ok": True, "content": result.content}
-        return {"ok": False, "reason": str(result.reason)}
+            return {"ok": True, "content": getattr(result, "content", None)}
+        return {"ok": False, "reason": str(getattr(result, "reason", "rejected"))}
 
 
 def get_api_client() -> ColonyAPIClient:

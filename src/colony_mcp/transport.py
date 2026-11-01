@@ -53,7 +53,16 @@ def _run_combined(host: str, port: int) -> None:
         middleware=[
             Middleware(
                 CORSMiddleware,
-                allow_origins=["*"],
+                allow_origins=[
+                    "http://127.0.0.1:10970",
+                    "http://127.0.0.1:10971",
+                    "http://localhost:10970",
+                    "http://localhost:10971",
+                    "tauri://localhost",
+                    "http://tauri.localhost",
+                    "https://tauri.localhost",
+                ],
+                allow_origin_regex=r"https?://(127\.0\.0\.1|localhost|goliath)(:\d+)?|https?://.*\.ts\.net(:\d+)?|tauri://.*",
                 allow_credentials=True,
                 allow_methods=["*"],
                 allow_headers=["*"],
@@ -69,4 +78,15 @@ def _run_combined(host: str, port: int) -> None:
     logging.info("  REST API: http://%s:%d/api/", host, port)
     logging.info("  MCP:      http://%s:%d/mcp/", host, port)
 
-    uvicorn.run(combined, host=host, port=port, log_level="info")
+    # Starlette Mount("/mcp") only matches /mcp/* - the bare path falls through
+    # to unrelated handlers (405). Rewrite it before routing.
+    class _McpSlashMiddleware:
+        def __init__(self, app):
+            self.app = app
+
+        async def __call__(self, scope, receive, send):
+            if scope.get("type") == "http" and scope.get("path") == "/mcp":
+                scope = dict(scope, path="/mcp/", raw_path=b"/mcp/")
+            await self.app(scope, receive, send)
+
+    uvicorn.run(_McpSlashMiddleware(combined), host=host, port=port, log_level="info")

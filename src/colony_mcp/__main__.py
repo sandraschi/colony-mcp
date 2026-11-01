@@ -1,10 +1,19 @@
-"""CLI entry point for colony-mcp."""
+"""CLI entry point for colony-mcp.
+
+Runnable two ways: `python -m colony_mcp` (normal + MCPB mcp_config) AND as a
+bundle file path (the pack Step 10 launch check runs the entry file directly,
+where relative imports have no parent package - so bootstrap sys.path first).
+"""
 
 import logging
 import sys
+from pathlib import Path
 
-from .config import get_settings
-from .transport import create_argument_parser, run_server
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from colony_mcp.config import get_settings
+from colony_mcp.transport import create_argument_parser, run_server
 
 
 def main() -> None:
