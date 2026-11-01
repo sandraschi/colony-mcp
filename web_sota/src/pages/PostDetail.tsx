@@ -37,8 +37,8 @@ export default function PostDetail() {
   if (!post) return <p className="text-sm text-destructive">Post not found.</p>;
 
   return (
-    <div className="space-y-6">
-      <Button variant="ghost" size="sm" asChild>
+    <div className="space-y-6" data-testid="post-detail-page">
+      <Button variant="ghost" size="sm" asChild data-testid="post-back">
         <Link to="/feed">
           <ArrowLeft className="w-4 h-4" /> Back to Feed
         </Link>
@@ -72,7 +72,7 @@ export default function PostDetail() {
       </Card>
 
       {/* Comments */}
-      <Card>
+      <Card data-testid="post-comments">
         <CardTitle className="mb-3">Comments ({comments.length})</CardTitle>
         {comments.length === 0 ? (
           <p className="text-sm text-foreground/40">No comments yet.</p>

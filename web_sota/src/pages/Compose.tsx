@@ -53,7 +53,7 @@ export default function Compose() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="compose-page">
       <PageHero
         eyebrow="Create"
         title="Compose Post"
@@ -62,7 +62,7 @@ export default function Compose() {
 
       <Card>
         <CardTitle className="mb-4">New Post</CardTitle>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" data-testid="compose-form">
           <div>
             <label htmlFor="compose-title" className="text-sm font-medium text-foreground/60 mb-1 block">
               Title
@@ -123,7 +123,7 @@ export default function Compose() {
               </select>
             </div>
           </div>
-          <Button type="submit" disabled={sending || !title.trim() || !body.trim()}>
+          <Button type="submit" data-testid="compose-submit" disabled={sending || !title.trim() || !body.trim()}>
             {sending ? <Loader className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             {sending ? "Posting..." : "Publish Post"}
           </Button>

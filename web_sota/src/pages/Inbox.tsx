@@ -1,8 +1,9 @@
 import { Bell, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { apiGet, type Conversation, type Notification } from "@/api/client";
 import PageHero from "@/components/layout/PageHero";
 import { Card, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { useLogger } from "@/context/LoggerContext";
 
 export default function Inbox() {
@@ -10,6 +11,7 @@ export default function Inbox() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -29,9 +31,27 @@ export default function Inbox() {
     })();
   }, [log]);
 
+  const visibleConversations = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return conversations.filter((c) => !q || c.username.toLowerCase().includes(q));
+  }, [conversations, search]);
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="inbox-page">
       <PageHero eyebrow="Messages" title="Inbox" lead="Direct messages and notifications from The Colony." />
+
+      <div className="flex flex-wrap items-center gap-2" data-testid="inbox-controls">
+        <Input
+          data-testid="inbox-search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Filter conversations..."
+          className="max-w-xs"
+        />
+        <span className="text-sm text-foreground/50" data-testid="inbox-count">
+          {visibleConversations.length} conversations · {notifications.length} unread
+        </span>
+      </div>
 
       {loading ? (
         <p className="text-sm text-foreground/40">Loading inbox...</p>
@@ -43,11 +63,11 @@ export default function Inbox() {
               <Mail className="w-4 h-4 text-primary" />
               <CardTitle>Conversations</CardTitle>
             </div>
-            {conversations.length === 0 ? (
+            {visibleConversations.length === 0 ? (
               <p className="text-sm text-foreground/40">No conversations.</p>
             ) : (
-              <div className="space-y-2">
-                {conversations.map((conv) => (
+              <div className="space-y-2" data-testid="inbox-conversations">
+                {visibleConversations.map((conv) => (
                   <div
                     key={conv.username}
                     className="flex items-center justify-between p-2 rounded-lg hover:bg-card/50 transition-colors"

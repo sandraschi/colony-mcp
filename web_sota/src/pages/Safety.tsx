@@ -66,7 +66,7 @@ export default function Safety() {
   if (loading) return <p className="text-sm text-foreground/40">Loading safety panel...</p>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="safety-page">
       <PageHero
         eyebrow="Safety"
         title="Safety Panel"
@@ -87,7 +87,7 @@ export default function Safety() {
       </Card>
 
       {/* Tier selector */}
-      <Card>
+      <Card data-testid="safety-tiers">
         <CardTitle className="mb-3">Permission Tier</CardTitle>
         <p className="text-sm text-foreground/50 mb-3">
           Change requires server restart with COLONY_MCP_SAFETY_MODE env var.
@@ -114,7 +114,7 @@ export default function Safety() {
       </Card>
 
       {/* Rate limits */}
-      <Card>
+      <Card data-testid="safety-limits">
         <div className="flex items-center gap-2 mb-3">
           <BarChart className="w-4 h-4 text-primary" />
           <CardTitle>Rate Limits</CardTitle>

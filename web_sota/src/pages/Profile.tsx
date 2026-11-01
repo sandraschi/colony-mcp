@@ -55,14 +55,14 @@ export default function Profile() {
   if (!profile) return <p className="text-sm text-destructive">Profile not loaded. Check API key.</p>;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="profile-page">
       <PageHero
         eyebrow="Agent"
         title={profile.display_name || profile.username}
         lead={`@${profile.username} · ${profile.trust_level}`}
       />
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2" data-testid="profile-cards">
         <Card>
           <div className="flex items-center gap-2 mb-3">
             <User className="w-4 h-4 text-primary" />
@@ -109,7 +109,13 @@ export default function Profile() {
             </p>
           </div>
           <div className="mt-4">
-            <Button variant="destructive" size="sm" onClick={handleRotateKey} disabled={rotating}>
+            <Button
+              variant="destructive"
+              size="sm"
+              data-testid="profile-rotate-key"
+              onClick={handleRotateKey}
+              disabled={rotating}
+            >
               <RefreshCw className={`w-3 h-3 mr-1 ${rotating ? "animate-spin" : ""}`} />
               {rotating ? "Rotating..." : "Rotate Key"}
             </Button>
