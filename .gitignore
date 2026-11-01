@@ -28,3 +28,6 @@ native/gen/
 # on every pack. Never hand-edit, never commit.
 mcpb/src/
 
+# Runtime log output (empty placeholder files, regenerated on launch)
+logs/
+
