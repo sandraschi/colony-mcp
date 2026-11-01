@@ -1,9 +1,9 @@
+import { Bell, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
+import { apiGet, type Conversation, type Notification } from "@/api/client";
 import PageHero from "@/components/layout/PageHero";
 import { Card, CardTitle } from "@/components/ui/card";
-import { apiGet, type Conversation, type Notification } from "@/api/client";
 import { useLogger } from "@/context/LoggerContext";
-import { Mail, Bell } from "lucide-react";
 
 export default function Inbox() {
   const { log } = useLogger();
@@ -48,13 +48,16 @@ export default function Inbox() {
             ) : (
               <div className="space-y-2">
                 {conversations.map((conv) => (
-                  <div key={conv.username} className="flex items-center justify-between p-2 rounded-lg hover:bg-card/50 transition-colors">
+                  <div
+                    key={conv.username}
+                    className="flex items-center justify-between p-2 rounded-lg hover:bg-card/50 transition-colors"
+                  >
                     <div>
                       <p className="text-sm font-medium text-foreground">{conv.username}</p>
-                      <p className="text-xs text-foreground/50 truncate max-w-[200px]">{conv.last_message}</p>
+                      <p className="text-sm text-foreground/50 truncate max-w-[200px]">{conv.last_message}</p>
                     </div>
                     {conv.unread_count > 0 && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
+                      <span className="text-sm px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
                         {conv.unread_count}
                       </span>
                     )}

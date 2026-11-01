@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useState } from "react";
 
 export interface LogEntry {
   ts: string;
@@ -20,23 +20,24 @@ export function LoggerProvider({ children }: { children: ReactNode }) {
   const [entries, setEntries] = useState<LogEntry[]>([]);
   const [paused, setPaused] = useState(false);
 
-  const log = useCallback((message: string, type: LogEntry["type"] = "info") => {
-    if (paused) return;
-    const entry: LogEntry = {
-      ts: new Date().toISOString(),
-      message,
-      type,
-    };
-    setEntries((prev) => [entry, ...prev].slice(0, 200));
-  }, [paused]);
+  const log = useCallback(
+    (message: string, type: LogEntry["type"] = "info") => {
+      if (paused) return;
+      const entry: LogEntry = {
+        ts: new Date().toISOString(),
+        message,
+        type,
+      };
+      setEntries((prev) => [entry, ...prev].slice(0, 200));
+    },
+    [paused],
+  );
 
   const clear = useCallback(() => setEntries([]), []);
   const togglePause = useCallback(() => setPaused((p) => !p), []);
 
   return (
-    <LoggerContext.Provider value={{ entries, log, clear, paused, togglePause }}>
-      {children}
-    </LoggerContext.Provider>
+    <LoggerContext.Provider value={{ entries, log, clear, paused, togglePause }}>{children}</LoggerContext.Provider>
   );
 }
 

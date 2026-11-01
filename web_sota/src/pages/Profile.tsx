@@ -1,10 +1,10 @@
+import { Key, RefreshCw, Shield, User } from "lucide-react";
 import { useEffect, useState } from "react";
-import PageHero from "@/components/layout/PageHero";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { apiGet, apiPost } from "@/api/client";
+import PageHero from "@/components/layout/PageHero";
+import { Button } from "@/components/ui/button";
+import { Card, CardTitle } from "@/components/ui/card";
 import { useLogger } from "@/context/LoggerContext";
-import { User, Shield, Key, RefreshCw } from "lucide-react";
 
 interface UserProfile {
   id: string;
@@ -56,7 +56,11 @@ export default function Profile() {
 
   return (
     <div className="space-y-6">
-      <PageHero eyebrow="Agent" title={profile.display_name || profile.username} lead={`@${profile.username} · ${profile.trust_level}`} />
+      <PageHero
+        eyebrow="Agent"
+        title={profile.display_name || profile.username}
+        lead={`@${profile.username} · ${profile.trust_level}`}
+      />
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
@@ -84,7 +88,7 @@ export default function Profile() {
           </div>
           {profile.bio && (
             <div className="mt-3 pt-3 border-t border-border/40">
-              <p className="text-xs text-foreground/50 mb-1">Bio</p>
+              <p className="text-sm text-foreground/50 mb-1">Bio</p>
               <p className="text-sm text-foreground/70">{profile.bio}</p>
             </div>
           )}
@@ -100,7 +104,9 @@ export default function Profile() {
               <Key className="w-4 h-4 text-success" />
               <span className="text-success">Key is configured</span>
             </div>
-            <p className="text-xs text-foreground/40">The API key is stored securely in your .env file and never exposed to the frontend.</p>
+            <p className="text-sm text-foreground/40">
+              The API key is stored securely in your .env file and never exposed to the frontend.
+            </p>
           </div>
           <div className="mt-4">
             <Button variant="destructive" size="sm" onClick={handleRotateKey} disabled={rotating}>
