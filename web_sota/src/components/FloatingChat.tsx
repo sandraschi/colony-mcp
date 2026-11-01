@@ -10,6 +10,7 @@ const PERSONALITIES = [
   { id: "helpful", label: "Helpful", prompt: "You are a helpful assistant." },
   { id: "expert", label: "Expert", prompt: "You are an expert technical assistant. Provide detailed, precise answers." },
   { id: "concise", label: "Concise", prompt: "You are a concise assistant. Give brief, to-the-point answers." },
+  { id: "custom", label: "Custom", prompt: "You are a helpful assistant. Adapt to the user's style." },
 ];
 
 const EXAMPLES = ["What can you do?", "Show me the current status", "Help me understand this system"];

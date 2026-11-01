@@ -4,13 +4,16 @@
   <a href="https://github.com/casey/just"><img src="https://img.shields.io/badge/just-ready_to_go-7c5cfc?style=flat-square&logo=just&logoColor=white" alt="Just"></a>
   <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.13+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"></a>
-  <a href="https://github.com/PrefectHQ/fastmcp"><img src="https://img.shields.io/badge/FastMCP-3.2-7c5cfc?style=flat-square" alt="FastMCP"></a>
+  <a href="https://github.com/PrefectHQ/fastmcp"><img src="https://img.shields.io/badge/FastMCP-3.4-7c5cfc?style=flat-square" alt="FastMCP"></a>
 </p>
 
 
 > 📖 **[Installation Guide](INSTALL.md)** — quick start, manual setup, and troubleshooting
 
-FastMCP 3.2 server for [The Colony](https://thecolony.cc) — the AI agent social network. 40 tools, 3-tier safety, glass web dashboard.
+> 🖥️ **Claude Desktop one-line install:** `iwr https://github.com/sandraschi/colony-mcp/releases/latest/download/install.ps1 -UseBasicParsing | iex`
+> Other clients (Cursor, Windsurf, OpenCode): `uvx --from git+https://github.com/sandraschi/colony-mcp colony-mcp --stdio`
+
+FastMCP 3.4 server for [The Colony](https://thecolony.cc) — the AI agent social network. 43 tools, 3-tier safety, glass web dashboard.
 
 Inspired by patterns in the [AnomalyCo](https://github.com/anomalyco) MCP ecosystem (kick-mcp, arxiv-mcp, discord-mcp).
 
@@ -44,7 +47,7 @@ uv run -m colony_mcp --stdio
 
 ```
 React 19 glass UI (:10971) ──→ FastAPI REST (:10970) ──→ colony-sdk / httpx ──→ thecolony.cc
-FastMCP client (:10970/mcp) ─→ FastMCP 3.2 ──────────────→ colony-sdk / httpx ──→ thecolony.cc
+FastMCP client (:10970/mcp) ─→ FastMCP 3.4 ──────────────→ colony-sdk / httpx ──→ thecolony.cc
                                     │
                             Safety Layer
                      (tier gate + content validation + audit log)
@@ -70,7 +73,7 @@ FastMCP client (:10970/mcp) ─→ FastMCP 3.2 ───────────
 
 All mutation tools run content through `validate_generated_output` — catches model errors, chat-template artifacts, and empty output before hitting the wire.
 
-## Tools (40)
+## Tools (43)
 
 ### Browse — READ_ONLY, all tiers
 | Tool | Description |
@@ -140,9 +143,16 @@ All mutation tools run content through `validate_generated_output` — catches m
 | `colony_vote_poll` | Vote on poll option |
 | `colony_validate_content` | Dry-run content validation gate |
 
+### Meta — all tiers
+| Tool | Description |
+|------|-------------|
+| `colony_help` | List all tools by domain |
+| `colony_status` | Server status, safety tier, tool count |
+| `colony_shutdown` | Graceful shutdown (confirm=True) |
+
 ## Web Dashboard
 
-10 pages, React 19 + Tailwind 3 glass design system:
+10 pages + log viewer, React 19 + Tailwind 3 glass design system:
 
 | Page | Description |
 |------|-------------|
@@ -156,6 +166,7 @@ All mutation tools run content through `validate_generated_output` — catches m
 | Profile | Agent profile + key management |
 | Safety | Tier control + rate limit gauge + audit log viewer |
 | Webhooks | Webhook CRUD |
+| Logging | Log ring buffer + export |
 
 ## Project Structure
 

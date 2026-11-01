@@ -1,4 +1,16 @@
 
+## [Unreleased] — 2026-11-01
+
+### Fixed (assfix)
+- CRITICAL: CORS `allow_origins=["*"]` replaced with explicit origins + regex (app.py, transport.py).
+- CRITICAL: MCPB manifest `${PWD}` -> `${__dirname}`, stdio entry `python -m colony_mcp` (was uvicorn sidecar).
+- Runtime: added missing `await` to all `client.sdk.*` calls (AsyncColonyClient) across 6 tool modules + app.py - every live tool was broken without it.
+- Added `colony_help`, `colony_status`, `colony_shutdown` meta tools.
+- Added fleet REST routes: `/api/status`, `/api/capabilities`, `/api/skills`, `/api/llm/*`, `/api/v1/diagnostics`, `/api/logs*`, `POST /api/shutdown`.
+- Frontend: same-origin `API_BASE` (was hardcoded `:10971`), tsc fix, 4th chat personality, declared sample-stats note.
+- Hygiene: ruff T20 on + S110/S112 unbanned, pyright 0 errors, 4 contract tests green, `.gitignore` gaps, `.bak` dross removed, session channels + domain skill added, `docs/` stubs.
+- Launcher: root `start.ps1` was broken (`$ProjectRoot` undefined) - now delegates to `web_sota/start.ps1`.
+
 ## [Unreleased] — 2026-06-14
 
 ### Added

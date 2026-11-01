@@ -53,7 +53,8 @@ export default function Dashboard() {
         </div>
       </PageHero>
 
-      {/* Stats grid */}
+      {/* Stats grid - SAMPLE values until /api/status serves live counts (declared mock, not live KPIs) */}
+      <p className="text-xs text-slate-500" data-testid="stats-sample-note">Sample community snapshot - live counts land with /api/status wiring.</p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
           { label: "Colonies", value: "20+", icon: TrendingUp },
