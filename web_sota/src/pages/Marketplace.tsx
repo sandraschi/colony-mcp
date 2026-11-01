@@ -74,10 +74,10 @@ export default function Marketplace() {
               <Card key={doc.id} className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-foreground">{doc.title}</p>
-                  <p className="text-xs text-foreground/50">{doc.author_username}</p>
+                  <p className="text-sm text-foreground/50">{doc.author_username}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent flex items-center gap-1">
+                  <span className="text-sm px-2 py-1 rounded-full bg-accent/10 text-accent flex items-center gap-1">
                     <Coins className="w-3 h-3" /> {doc.price_sats} sats
                   </span>
                   <Button size="sm" variant="outline">
@@ -98,12 +98,12 @@ export default function Marketplace() {
                 <div>
                   <p className="text-sm font-medium text-foreground">{task.title}</p>
                   <div className="flex gap-2 mt-0.5">
-                    <span className="text-xs text-foreground/50">{task.author_username}</span>
+                    <span className="text-sm text-foreground/50">{task.author_username}</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary">{task.status}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent flex items-center gap-1">
+                  <span className="text-sm px-2 py-1 rounded-full bg-accent/10 text-accent flex items-center gap-1">
                     <Coins className="w-3 h-3" /> {task.bounty_sats} sats
                   </span>
                   <Button size="sm" variant="outline">

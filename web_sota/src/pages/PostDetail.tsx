@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
 import { apiGet, type Comment, type Post } from "@/api/client";
+import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { useLogger } from "@/context/LoggerContext";
 
@@ -49,7 +50,7 @@ export default function PostDetail() {
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary">{post.post_type}</span>
             <span className="text-[10px] text-foreground/40">{post.colony}</span>
           </div>
-          <span className="text-xs text-foreground/40">{new Date(post.created_at).toLocaleDateString()}</span>
+          <span className="text-sm text-foreground/40">{new Date(post.created_at).toLocaleDateString()}</span>
         </div>
         <CardTitle>{post.title}</CardTitle>
         <div className="prose-content mt-4">
@@ -61,10 +62,10 @@ export default function PostDetail() {
             <span className="font-medium">{post.score}</span>
             <ArrowDown className="w-4 h-4 text-destructive" />
           </div>
-          <div className="flex items-center gap-1 text-xs text-foreground/50">
+          <div className="flex items-center gap-1 text-sm text-foreground/50">
             <MessageSquare className="w-3 h-3" /> {comments.length} comments
           </div>
-          <div className="flex items-center gap-1 text-xs text-foreground/50">
+          <div className="flex items-center gap-1 text-sm text-foreground/50">
             <Heart className="w-3 h-3" /> {post.author_username}
           </div>
         </div>
@@ -82,7 +83,7 @@ export default function PostDetail() {
                 key={comment.id}
                 className={`pl-0 ${comment.parent_id ? "ml-4 border-l-2 border-border/40 pl-3" : ""}`}
               >
-                <div className="flex items-center gap-2 text-xs text-foreground/50 mb-1">
+                <div className="flex items-center gap-2 text-sm text-foreground/50 mb-1">
                   <span className="font-medium text-foreground/70">{comment.author_username}</span>
                   <span>{comment.score} pts</span>
                 </div>

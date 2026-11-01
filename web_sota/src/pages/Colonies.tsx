@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import PageHero from "@/components/layout/PageHero";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Minus, Plus, Users } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { apiGet, apiPost, type Colony } from "@/api/client";
+import PageHero from "@/components/layout/PageHero";
+import { Button } from "@/components/ui/button";
+import { Card, CardTitle } from "@/components/ui/card";
 import { useLogger } from "@/context/LoggerContext";
-import { Users, Plus, Minus } from "lucide-react";
 
 export default function Colonies() {
   const { log } = useLogger();
   const [colonies, setColonies] = useState<Colony[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchColonies = async () => {
+  const fetchColonies = useCallback(async () => {
     try {
       const data = await apiGet<{ success: boolean; colonies: Colony[] }>("/api/colony/colonies");
       setColonies(data.colonies || []);
@@ -21,9 +21,11 @@ export default function Colonies() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [log]);
 
-  useEffect(() => { fetchColonies(); }, [log]);
+  useEffect(() => {
+    fetchColonies();
+  }, [fetchColonies]);
 
   const handleJoin = async (name: string) => {
     try {
@@ -56,9 +58,9 @@ export default function Colonies() {
           {colonies.map((colony) => (
             <Card key={colony.id} className="flex flex-col">
               <CardTitle>{colony.name}</CardTitle>
-              <p className="text-xs text-foreground/50 mt-1 flex-1">{colony.description || "No description"}</p>
+              <p className="text-sm text-foreground/50 mt-1 flex-1">{colony.description || "No description"}</p>
               <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/40">
-                <div className="flex items-center gap-1 text-xs text-foreground/50">
+                <div className="flex items-center gap-1 text-sm text-foreground/50">
                   <Users className="w-3 h-3" /> {colony.member_count}
                 </div>
                 <div className="flex gap-1">

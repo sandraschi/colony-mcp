@@ -81,7 +81,7 @@ export default function Safety() {
           </div>
           <div>
             <p className="text-sm font-semibold text-foreground capitalize">{currentTier.label} Mode</p>
-            <p className="text-xs text-foreground/50">{currentTier.description}</p>
+            <p className="text-sm text-foreground/50">{currentTier.description}</p>
           </div>
         </div>
       </Card>
@@ -89,7 +89,7 @@ export default function Safety() {
       {/* Tier selector */}
       <Card>
         <CardTitle className="mb-3">Permission Tier</CardTitle>
-        <p className="text-xs text-foreground/50 mb-3">
+        <p className="text-sm text-foreground/50 mb-3">
           Change requires server restart with COLONY_MCP_SAFETY_MODE env var.
         </p>
         <div className="grid gap-3 md:grid-cols-3">
@@ -127,7 +127,7 @@ export default function Safety() {
               <div key={key}>
                 <div className="flex items-center justify-between text-sm mb-1">
                   <span className="text-foreground/70 capitalize">{key.replace(/_/g, " ")}</span>
-                  <span className="font-mono text-xs">
+                  <span className="font-mono text-sm">
                     <span className={rl.remaining === 0 ? "text-destructive" : "text-success"}>{rl.remaining}</span>/
                     {rl.limit}
                   </span>

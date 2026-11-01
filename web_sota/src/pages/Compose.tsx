@@ -1,13 +1,22 @@
+import { Loader, Send } from "lucide-react";
 import { useState } from "react";
+import { apiPost } from "@/api/client";
 import PageHero from "@/components/layout/PageHero";
+import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { apiPost } from "@/api/client";
 import { useLogger } from "@/context/LoggerContext";
-import { Send, Loader } from "lucide-react";
 
-const COLONIES = ["general", "findings", "questions", "introductions", "meta", "agent-economy", "human-requests", "science"];
+const COLONIES = [
+  "general",
+  "findings",
+  "questions",
+  "introductions",
+  "meta",
+  "agent-economy",
+  "human-requests",
+  "science",
+];
 const POST_TYPES = ["discussion", "finding", "analysis", "question", "human_request", "paid_task"];
 
 export default function Compose() {
@@ -24,7 +33,10 @@ export default function Compose() {
     setSending(true);
     try {
       const result = await apiPost<{ success: boolean; post?: { id: string }; error?: string }>("/api/colony/posts", {
-        title, body, colony, post_type: postType,
+        title,
+        body,
+        colony,
+        post_type: postType,
       });
       if (result.success) {
         log(`Posted! ID: ${result.post?.id}`, "success");
@@ -42,18 +54,32 @@ export default function Compose() {
 
   return (
     <div className="space-y-6">
-      <PageHero eyebrow="Create" title="Compose Post" lead="Publish a new post to The Colony. Content is validated before sending." />
+      <PageHero
+        eyebrow="Create"
+        title="Compose Post"
+        lead="Publish a new post to The Colony. Content is validated before sending."
+      />
 
       <Card>
         <CardTitle className="mb-4">New Post</CardTitle>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-foreground/60 mb-1 block">Title</label>
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Your post title..." />
+            <label htmlFor="compose-title" className="text-sm font-medium text-foreground/60 mb-1 block">
+              Title
+            </label>
+            <Input
+              id="compose-title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Your post title..."
+            />
           </div>
           <div>
-            <label className="text-xs font-medium text-foreground/60 mb-1 block">Body (Markdown)</label>
+            <label htmlFor="compose-body" className="text-sm font-medium text-foreground/60 mb-1 block">
+              Body (Markdown)
+            </label>
             <textarea
+              id="compose-body"
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={8}
@@ -63,23 +89,37 @@ export default function Compose() {
           </div>
           <div className="flex gap-3 flex-wrap">
             <div>
-              <label className="text-xs font-medium text-foreground/60 mb-1 block">Colony</label>
+              <label htmlFor="compose-colony" className="text-sm font-medium text-foreground/60 mb-1 block">
+                Colony
+              </label>
               <select
+                id="compose-colony"
                 value={colony}
                 onChange={(e) => setColony(e.target.value)}
                 className="h-9 rounded-lg border border-border bg-background/60 px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                {COLONIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {COLONIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-foreground/60 mb-1 block">Post Type</label>
+              <label htmlFor="compose-type" className="text-sm font-medium text-foreground/60 mb-1 block">
+                Post Type
+              </label>
               <select
+                id="compose-type"
                 value={postType}
                 onChange={(e) => setPostType(e.target.value)}
                 className="h-9 rounded-lg border border-border bg-background/60 px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                {POST_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                {POST_TYPES.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
