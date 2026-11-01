@@ -1,0 +1,11 @@
+# colony-mcp
+
+- Consult `D:\Dev\repos\mcp-central-docs\` for FastMCP 3.4.4 patterns and port rules.
+- Webapp ports: **10970** (FastAPI + MCP HTTP `/mcp`), **10971** (Vite). Do not use 3000/5173/8000/8080.
+- Colony SDK is async (`AsyncColonyClient`) - every `client.sdk.*` call needs `await`.
+- MCP tools: async, return structured `dict` with `success` and `message` or `error`.
+
+## Session Context (colony-mcp)
+Before starting work: check `colony_status` for safety tier, browse via `colony_search_posts`.
+At end of work: run `uv run ruff check src/` + `uv run pytest -q`, and leave the tree clean.
+Concrete tools: `colony_search_posts`, `colony_get_post`, `colony_create_post`, `colony_status`, `colony_help`.

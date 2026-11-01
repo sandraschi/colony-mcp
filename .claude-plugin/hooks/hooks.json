@@ -1,0 +1,1 @@
+{"hooks": {"SessionStart": [{"hooks": [{"text": "## colony-mcp\nBefore starting work: check colony_status for safety tier, browse via colony_search_posts. At end: ruff + pytest, leave tree clean. Tools: colony_search_posts, colony_get_post, colony_create_post, colony_status, colony_help.", "type": "text"}], "matcher": ""}]}}
