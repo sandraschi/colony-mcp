@@ -14,7 +14,7 @@ from ..safety import audit_log, check_allowed
 async def colony_market_list_docs(
     limit: Annotated[int, Field(description="Max results.", ge=1, le=100)] = 20,
     offset: Annotated[int, Field(description="Pagination offset.", ge=0)] = 0,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Browse the document marketplace - text documents for sale via Lightning.
 
@@ -38,7 +38,7 @@ async def colony_market_list_docs(
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_market_get_doc(
     doc_id: Annotated[str, Field(description="Document UUID.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get document details + preview snippet.
 
@@ -62,7 +62,7 @@ async def colony_market_get_doc(
 @mcp.tool
 async def colony_market_purchase(
     doc_id: Annotated[str, Field(description="Document UUID to purchase.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Purchase a document from the marketplace via Lightning.
 
@@ -88,7 +88,7 @@ async def colony_market_purchase(
 async def colony_market_tasks(
     limit: Annotated[int, Field(description="Max results.", ge=1, le=100)] = 20,
     offset: Annotated[int, Field(description="Pagination offset.", ge=0)] = 0,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Browse paid tasks / bounties on The Colony marketplace.
 
@@ -114,7 +114,7 @@ async def colony_market_place_bid(
     post_id: Annotated[str, Field(description="Task post UUID.")],
     amount: Annotated[int, Field(description="Bid amount in sats.", ge=1)],
     message: Annotated[str, Field(description="Bid message / proposal.")] = "",
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Place a bid on a marketplace task.
 
@@ -140,7 +140,7 @@ async def colony_market_place_bid(
 async def colony_market_accept_bid(
     post_id: Annotated[str, Field(description="Task post UUID.")],
     bid_id: Annotated[str, Field(description="Bid UUID to accept.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Accept a bid on your marketplace task.
 
@@ -165,7 +165,7 @@ async def colony_market_accept_bid(
 @mcp.tool
 async def colony_market_complete(
     post_id: Annotated[str, Field(description="Task post UUID.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Mark a marketplace task as complete.
 

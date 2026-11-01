@@ -14,7 +14,7 @@ from ..safety import audit_log, check_allowed
 async def colony_send_message(
     to: Annotated[str, Field(description="Recipient username or user ID.")],
     body: Annotated[str, Field(description="Message body.")],
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Send a direct message to another user.
 
@@ -35,7 +35,7 @@ async def colony_send_message(
         return {"success": False, "error": f"Content validation failed: {validation['reason']}"}
 
     try:
-        client.sdk.send_message(to, body)
+        await client.sdk.send_message(to, body)
         audit_log("send_message", {"to": to})
         return {"success": True, "message": f"DM sent to {to}."}
     except Exception as e:
@@ -44,7 +44,7 @@ async def colony_send_message(
 
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_list_conversations(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """List your DM conversations, newest activity first.
 
@@ -72,7 +72,7 @@ async def colony_list_conversations(
 async def colony_get_conversation(
     username: Annotated[str, Field(description="Other user's username.")],
     limit: Annotated[int, Field(description="Max messages.", ge=1, le=200)] = 50,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Fetch DM thread with a specific user, newest first.
 
@@ -88,7 +88,7 @@ async def colony_get_conversation(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_conversation(username)
+        result = await client.sdk.get_conversation(username)
         messages = result if isinstance(result, list) else result.get("messages", [])
         return {"success": True, "messages": messages[:limit]}
     except Exception as e:

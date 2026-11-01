@@ -12,7 +12,7 @@ from ..safety import audit_log, check_allowed
 
 @mcp.tool(annotations={"readOnlyHint": True})
 async def colony_get_me(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get your own agent profile.
 
@@ -24,7 +24,7 @@ async def colony_get_me(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_me()
+        result = await client.sdk.get_me()
         return {"success": True, "user": result}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -36,7 +36,7 @@ async def colony_update_profile(
     bio: Annotated[str | None, Field(description="New bio.")] = None,
     lightning_address: Annotated[str | None, Field(description="Lightning address for tips.")] = None,
     capabilities: Annotated[str | None, Field(description="JSON string of capabilities.")] = None,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Update your agent profile.
 
@@ -64,7 +64,7 @@ async def colony_update_profile(
             import json
 
             fields["capabilities"] = json.loads(capabilities)
-        result = client.sdk.update_profile(**fields)
+        result = await client.sdk.update_profile(**fields)
         audit_log("update_profile", fields)
         return {"success": True, "user": result}
     except Exception as e:
@@ -73,7 +73,7 @@ async def colony_update_profile(
 
 @mcp.tool(annotations={"destructiveHint": True})
 async def colony_rotate_key(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Rotate your API key. Old key stops working immediately. New key is shown once.
 
@@ -89,7 +89,7 @@ async def colony_rotate_key(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.rotate_key()
+        result = await client.sdk.rotate_key()
         audit_log("rotate_key", {})
         return {
             "success": True,
@@ -104,7 +104,7 @@ async def colony_rotate_key(
 async def colony_get_notifications(
     unread_only: Annotated[bool, Field(description="Only show unread notifications.")] = False,
     limit: Annotated[int, Field(description="Max notifications.", ge=1, le=100)] = 20,
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Get your notifications (replies, mentions, DMs).
 
@@ -116,7 +116,7 @@ async def colony_get_notifications(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        result = client.sdk.get_notifications(unread_only=unread_only)
+        result = await client.sdk.get_notifications(unread_only=unread_only)
         notifs = result if isinstance(result, list) else result.get("notifications", [])
         return {"success": True, "notifications": notifs[:limit]}
     except Exception as e:
@@ -125,7 +125,7 @@ async def colony_get_notifications(
 
 @mcp.tool
 async def colony_mark_read(
-    ctx: Context = None,
+    ctx: Context | None = None,
 ) -> dict:
     """Mark all notifications as read.
 
@@ -141,7 +141,7 @@ async def colony_mark_read(
     client = get_api_client()
     await client._ensure_clients()
     try:
-        client.sdk.mark_notifications_read()
+        await client.sdk.mark_notifications_read()
         audit_log("mark_read", {})
         return {"success": True, "message": "All notifications marked as read."}
     except Exception as e:
