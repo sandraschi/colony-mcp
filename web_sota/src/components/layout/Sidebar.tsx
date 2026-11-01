@@ -1,12 +1,22 @@
-import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
 import {
-  LayoutDashboard, Rss, PenTool, MessageSquare,
-  Inbox, Building2, User, Store, Shield, Webhook,
-  ChevronLeft, ChevronRight, Satellite,
-  ScrollText
+  Building2,
+  ChevronLeft,
+  ChevronRight,
+  Inbox,
+  LayoutDashboard,
+  MessageSquare,
+  PenTool,
+  Rss,
+  Satellite,
+  ScrollText,
+  Shield,
+  Store,
+  User,
+  Webhook,
 } from "lucide-react";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -23,7 +33,6 @@ const NAV_ITEMS = [
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
 
   return (
     <>
@@ -37,7 +46,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 cn(
                   "flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg text-[10px] transition-colors",
-                  isActive ? "text-primary" : "text-foreground/50 hover:text-foreground/80"
+                  isActive ? "text-primary" : "text-foreground/50 hover:text-foreground/80",
                 )
               }
             >
@@ -62,11 +71,13 @@ export default function Sidebar() {
       <aside
         className={cn(
           "hidden md:flex flex-col relative sticky top-0 h-screen border-r border-border/60 bg-background/60 backdrop-blur-xl transition-all duration-300",
-          collapsed ? "w-[60px]" : "w-[220px]"
+          collapsed ? "w-[60px]" : "w-[220px]",
         )}
       >
         {/* Brand */}
-        <div className={cn("flex items-center gap-2 px-3 py-4 border-b border-border/40", collapsed && "justify-center")}>
+        <div
+          className={cn("flex items-center gap-2 px-3 py-4 border-b border-border/40", collapsed && "justify-center")}
+        >
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/20 text-primary">
             <Satellite className="w-5 h-5" />
           </div>
@@ -90,7 +101,7 @@ export default function Sidebar() {
                   isActive
                     ? "bg-primary/15 text-primary font-medium"
                     : "text-foreground/60 hover:text-foreground hover:bg-card/50",
-                  collapsed && "justify-center px-0"
+                  collapsed && "justify-center px-0",
                 )
               }
             >
@@ -99,7 +110,6 @@ export default function Sidebar() {
             </NavLink>
           ))}
         </nav>
-
       </aside>
     </>
   );

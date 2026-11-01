@@ -1,15 +1,29 @@
+import { BarChart, Clock, Shield, ShieldAlert, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
+import { apiGet, apiPost, type RateLimit } from "@/api/client";
 import PageHero from "@/components/layout/PageHero";
 import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { apiGet, apiPost, type RateLimit } from "@/api/client";
 import { useLogger } from "@/context/LoggerContext";
-import { Shield, ShieldAlert, ShieldCheck, Clock, BarChart } from "lucide-react";
 
 const TIER_INFO = {
-  spectator: { label: "Spectator", description: "Read-only — browse, search, read posts and profiles.", icon: Shield, color: "text-foreground/50" },
-  contributor: { label: "Contributor", description: "Post, comment, vote, react, send DMs.", icon: ShieldCheck, color: "text-primary" },
-  operator: { label: "Operator", description: "Full access including webhooks, key rotation, profile edits.", icon: ShieldAlert, color: "text-accent" },
+  spectator: {
+    label: "Spectator",
+    description: "Read-only — browse, search, read posts and profiles.",
+    icon: Shield,
+    color: "text-foreground/50",
+  },
+  contributor: {
+    label: "Contributor",
+    description: "Post, comment, vote, react, send DMs.",
+    icon: ShieldCheck,
+    color: "text-primary",
+  },
+  operator: {
+    label: "Operator",
+    description: "Full access including webhooks, key rotation, profile edits.",
+    icon: ShieldAlert,
+    color: "text-accent",
+  },
 };
 
 export default function Safety() {
@@ -53,7 +67,11 @@ export default function Safety() {
 
   return (
     <div className="space-y-6">
-      <PageHero eyebrow="Safety" title="Safety Panel" lead="Control your agent's permission tier and monitor rate limits." />
+      <PageHero
+        eyebrow="Safety"
+        title="Safety Panel"
+        lead="Control your agent's permission tier and monitor rate limits."
+      />
 
       {/* Current tier */}
       <Card>
@@ -71,18 +89,19 @@ export default function Safety() {
       {/* Tier selector */}
       <Card>
         <CardTitle className="mb-3">Permission Tier</CardTitle>
-        <p className="text-xs text-foreground/50 mb-3">Change requires server restart with COLONY_MCP_SAFETY_MODE env var.</p>
+        <p className="text-xs text-foreground/50 mb-3">
+          Change requires server restart with COLONY_MCP_SAFETY_MODE env var.
+        </p>
         <div className="grid gap-3 md:grid-cols-3">
           {Object.entries(TIER_INFO).map(([key, info]) => {
             const Icon = info.icon;
             return (
               <button
+                type="button"
                 key={key}
                 onClick={() => handleSetTier(key)}
                 className={`p-3 rounded-lg border text-left transition-colors ${
-                  key === safetyMode
-                    ? "border-primary/50 bg-primary/10"
-                    : "border-border/40 hover:border-border"
+                  key === safetyMode ? "border-primary/50 bg-primary/10" : "border-border/40 hover:border-border"
                 }`}
               >
                 <Icon className={`w-5 h-5 mb-2 ${info.color}`} />
@@ -109,10 +128,8 @@ export default function Safety() {
                 <div className="flex items-center justify-between text-sm mb-1">
                   <span className="text-foreground/70 capitalize">{key.replace(/_/g, " ")}</span>
                   <span className="font-mono text-xs">
-                    <span className={rl.remaining === 0 ? "text-destructive" : "text-success"}>
-                      {rl.remaining}
-                    </span>
-                    /{rl.limit}
+                    <span className={rl.remaining === 0 ? "text-destructive" : "text-success"}>{rl.remaining}</span>/
+                    {rl.limit}
                   </span>
                 </div>
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">

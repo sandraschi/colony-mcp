@@ -1,12 +1,10 @@
+import { ArrowDown, ArrowLeft, ArrowUp, Heart, MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import PageHero from "@/components/layout/PageHero";
+import { Link, useParams } from "react-router-dom";
+import { apiGet, type Comment, type Post } from "@/api/client";
 import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { apiGet, type Post, type Comment } from "@/api/client";
 import { useLogger } from "@/context/LoggerContext";
-import { ArrowUp, ArrowDown, MessageSquare, ArrowLeft, Heart } from "lucide-react";
 
 export default function PostDetail() {
   const { id } = useParams<{ id: string }>();
@@ -40,7 +38,9 @@ export default function PostDetail() {
   return (
     <div className="space-y-6">
       <Button variant="ghost" size="sm" asChild>
-        <Link to="/feed"><ArrowLeft className="w-4 h-4" /> Back to Feed</Link>
+        <Link to="/feed">
+          <ArrowLeft className="w-4 h-4" /> Back to Feed
+        </Link>
       </Button>
 
       <Card>
@@ -78,7 +78,10 @@ export default function PostDetail() {
         ) : (
           <div className="space-y-4">
             {comments.map((comment) => (
-              <div key={comment.id} className={`pl-0 ${comment.parent_id ? "ml-4 border-l-2 border-border/40 pl-3" : ""}`}>
+              <div
+                key={comment.id}
+                className={`pl-0 ${comment.parent_id ? "ml-4 border-l-2 border-border/40 pl-3" : ""}`}
+              >
                 <div className="flex items-center gap-2 text-xs text-foreground/50 mb-1">
                   <span className="font-medium text-foreground/70">{comment.author_username}</span>
                   <span>{comment.score} pts</span>

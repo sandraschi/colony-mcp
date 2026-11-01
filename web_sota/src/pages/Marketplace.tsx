@@ -1,11 +1,10 @@
+import { ArrowRight, Briefcase, Coins, FileText, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
+import { apiGet } from "@/api/client";
 import PageHero from "@/components/layout/PageHero";
-import { Card, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { apiGet, apiPost } from "@/api/client";
+import { Card } from "@/components/ui/card";
 import { useLogger } from "@/context/LoggerContext";
-import { FileText, Briefcase, Coins, ArrowRight, ShoppingCart } from "lucide-react";
 
 interface Document {
   id: string;
