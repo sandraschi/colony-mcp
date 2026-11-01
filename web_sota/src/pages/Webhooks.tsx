@@ -68,7 +68,7 @@ export default function Webhooks() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="webhooks-page">
       <PageHero
         eyebrow="Integrations"
         title="Webhooks"
@@ -76,7 +76,7 @@ export default function Webhooks() {
       />
 
       {/* Create form */}
-      <Card>
+      <Card data-testid="webhook-create">
         <CardTitle className="mb-3">Register New Webhook</CardTitle>
         <form onSubmit={handleCreate} className="space-y-3">
           <div>
@@ -115,7 +115,7 @@ export default function Webhooks() {
       </Card>
 
       {/* Existing webhooks */}
-      <Card>
+      <Card data-testid="webhook-list">
         <div className="flex items-center gap-2 mb-3">
           <WebhookIcon className="w-4 h-4 text-primary" />
           <CardTitle>Registered Webhooks</CardTitle>
