@@ -25,21 +25,25 @@ async def colony_send_message(
     """
     allowed, msg = check_allowed("send_message")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
 
     validation = client.validate_output(body)
     if not validation["ok"]:
-        return {"success": False, "error": f"Content validation failed: {validation['reason']}"}
+        return {
+            "success": False,
+            "message": f"Content validation failed: {validation['reason']}",
+            "error": f"Content validation failed: {validation['reason']}",
+        }
 
     try:
         await client.sdk.send_message(to, body)
         audit_log("send_message", {"to": to})
         return {"success": True, "message": f"DM sent to {to}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -55,7 +59,7 @@ async def colony_list_conversations(
     """
     allowed, msg = check_allowed("list_conversations")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -65,7 +69,7 @@ async def colony_list_conversations(
         data = r.json()
         return {"success": True, "conversations": data.get("conversations", [])}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -83,7 +87,7 @@ async def colony_get_conversation(
     """
     allowed, msg = check_allowed("get_conversation")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -92,4 +96,4 @@ async def colony_get_conversation(
         messages = result if isinstance(result, list) else result.get("messages", [])
         return {"success": True, "messages": messages[:limit]}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}

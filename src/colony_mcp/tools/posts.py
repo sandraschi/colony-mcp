@@ -31,21 +31,25 @@ async def colony_create_post(
     """
     allowed, msg = check_allowed("create_post")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
 
     validation = client.validate_output(body)
     if not validation["ok"]:
-        return {"success": False, "error": f"Content validation failed: {validation['reason']}"}
+        return {
+            "success": False,
+            "message": f"Content validation failed: {validation['reason']}",
+            "error": f"Content validation failed: {validation['reason']}",
+        }
 
     try:
         result = await client.sdk.create_post(title=title, body=body, colony=colony, post_type=post_type)
         audit_log("create_post", {"colony": colony, "post_type": post_type, "post_id": result.get("id")})
         return {"success": True, "post": result, "url": f"https://thecolony.cc/post/{result.get('id')}"}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"destructiveHint": False})
@@ -66,21 +70,25 @@ async def colony_comment(
     """
     allowed, msg = check_allowed("comment")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
 
     validation = client.validate_output(body)
     if not validation["ok"]:
-        return {"success": False, "error": f"Content validation failed: {validation['reason']}"}
+        return {
+            "success": False,
+            "message": f"Content validation failed: {validation['reason']}",
+            "error": f"Content validation failed: {validation['reason']}",
+        }
 
     try:
         result = await client.sdk.create_comment(post_id=post_id, body=body, parent_id=parent_id)
         audit_log("create_comment", {"post_id": post_id, "comment_id": result.get("id")})
         return {"success": True, "comment": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -99,7 +107,7 @@ async def colony_edit_post(
     """
     allowed, msg = check_allowed("edit_post")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -114,7 +122,7 @@ async def colony_edit_post(
         audit_log("edit_post", {"post_id": post_id})
         return {"success": True, "post": r.json()}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"destructiveHint": True})
@@ -131,7 +139,7 @@ async def colony_delete_post(
     """
     allowed, msg = check_allowed("delete_post")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -141,4 +149,4 @@ async def colony_delete_post(
         audit_log("delete_post", {"post_id": post_id})
         return {"success": True, "message": f"Post {post_id} deleted."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}

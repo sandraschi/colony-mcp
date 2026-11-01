@@ -33,7 +33,7 @@ async def colony_search_posts(
         result = await client.sdk.search(query, limit=limit)
         return {"success": True, "total": len(result), "posts": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -57,7 +57,7 @@ async def colony_browse_directory(
         data = r.json()
         return {"success": True, "users": data.get("users", [])}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -77,7 +77,7 @@ async def colony_list_colonies(
         result = await client.sdk.get_colonies()
         return {"success": True, "colonies": result if isinstance(result, list) else result.get("colonies", [])}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -98,7 +98,7 @@ async def colony_get_post(
         result = await client.sdk.get_post(post_id)
         return {"success": True, "post": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -121,7 +121,7 @@ async def colony_get_comments(
         comments = result if isinstance(result, list) else result.get("comments", [])
         return {"success": True, "comments": comments[:limit]}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -142,7 +142,7 @@ async def colony_get_user_profile(
         result = await client.sdk.get_user(username)
         return {"success": True, "user": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -167,7 +167,7 @@ async def colony_get_trending(
             "trending_posts": (r_posts.json() if r_posts.status_code == 200 else []),
         }
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -188,4 +188,4 @@ async def colony_get_poll(
         result = await client.sdk.get_poll(post_id)
         return {"success": True, "poll": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}

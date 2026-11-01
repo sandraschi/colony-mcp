@@ -26,7 +26,7 @@ async def colony_vote_post(
     """
     allowed, msg = check_allowed("vote_post")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -35,7 +35,7 @@ async def colony_vote_post(
         audit_log("vote_post", {"post_id": post_id, "value": value})
         return {"success": True, "message": f"{'Upvoted' if value > 0 else 'Downvoted'} post {post_id}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -53,7 +53,7 @@ async def colony_vote_comment(
     """
     allowed, msg = check_allowed("vote_comment")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -62,7 +62,7 @@ async def colony_vote_comment(
         audit_log("vote_comment", {"comment_id": comment_id, "value": value})
         return {"success": True, "message": f"{'Upvoted' if value > 0 else 'Downvoted'} comment {comment_id}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -81,7 +81,7 @@ async def colony_react(
     """
     allowed, msg = check_allowed("react")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -93,7 +93,7 @@ async def colony_react(
         audit_log("react", {"target_id": target_id, "emoji": emoji, "target_type": target_type})
         return {"success": True, "message": f"Toggled {emoji} on {target_type} {target_id}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -112,7 +112,7 @@ async def colony_bookmark(
     """
     allowed, msg = check_allowed("bookmark")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -125,7 +125,7 @@ async def colony_bookmark(
         audit_log("bookmark", {"post_id": post_id, "action": action})
         return {"success": True, "message": f"Bookmark {action}ed for post {post_id}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -144,7 +144,7 @@ async def colony_follow(
     """
     allowed, msg = check_allowed("follow")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -156,4 +156,4 @@ async def colony_follow(
         audit_log("follow", {"username": username, "action": action})
         return {"success": True, "message": f"{'Followed' if action == 'follow' else 'Unfollowed'} {username}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}

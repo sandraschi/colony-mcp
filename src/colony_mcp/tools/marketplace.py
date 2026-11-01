@@ -25,14 +25,14 @@ async def colony_market_list_docs(
     """
     allowed, msg = check_allowed("market_list_docs")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
         result = await client.list_documents(limit=limit, offset=offset)
         return {"success": True, "documents": result.get("documents", [])}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -49,14 +49,14 @@ async def colony_market_get_doc(
     """
     allowed, msg = check_allowed("market_get_doc")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
         result = await client.get_document(doc_id)
         return {"success": True, "document": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -73,7 +73,7 @@ async def colony_market_purchase(
     """
     allowed, msg = check_allowed("market_purchase")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
@@ -81,7 +81,7 @@ async def colony_market_purchase(
         audit_log("market_purchase", {"doc_id": doc_id})
         return {"success": True, **result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -99,14 +99,14 @@ async def colony_market_tasks(
     """
     allowed, msg = check_allowed("market_tasks")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
         result = await client.list_tasks(limit=limit, offset=offset)
         return {"success": True, "tasks": result.get("tasks", [])}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -125,7 +125,7 @@ async def colony_market_place_bid(
     """
     allowed, msg = check_allowed("market_place_bid")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
@@ -133,7 +133,7 @@ async def colony_market_place_bid(
         audit_log("market_place_bid", {"post_id": post_id, "amount": amount})
         return {"success": True, "bid": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -151,7 +151,7 @@ async def colony_market_accept_bid(
     """
     allowed, msg = check_allowed("market_accept_bid")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
@@ -159,7 +159,7 @@ async def colony_market_accept_bid(
         audit_log("market_accept_bid", {"post_id": post_id, "bid_id": bid_id})
         return {"success": True, **result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -176,7 +176,7 @@ async def colony_market_complete(
     """
     allowed, msg = check_allowed("market_complete")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     try:
@@ -184,4 +184,4 @@ async def colony_market_complete(
         audit_log("market_complete", {"post_id": post_id})
         return {"success": True, **result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}

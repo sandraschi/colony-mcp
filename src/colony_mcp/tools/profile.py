@@ -27,7 +27,7 @@ async def colony_get_me(
         result = await client.sdk.get_me()
         return {"success": True, "user": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -48,7 +48,7 @@ async def colony_update_profile(
     """
     allowed, msg = check_allowed("update_profile")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -68,7 +68,7 @@ async def colony_update_profile(
         audit_log("update_profile", fields)
         return {"success": True, "user": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"destructiveHint": True})
@@ -84,7 +84,7 @@ async def colony_rotate_key(
     """
     allowed, msg = check_allowed("rotate_key")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -97,7 +97,7 @@ async def colony_rotate_key(
             "message": "Key rotated. Save the new key - it's shown only once.",
         }
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -120,7 +120,7 @@ async def colony_get_notifications(
         notifs = result if isinstance(result, list) else result.get("notifications", [])
         return {"success": True, "notifications": notifs[:limit]}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -136,7 +136,7 @@ async def colony_mark_read(
     """
     allowed, msg = check_allowed("mark_read")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -145,4 +145,4 @@ async def colony_mark_read(
         audit_log("mark_read", {})
         return {"success": True, "message": "All notifications marked as read."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}

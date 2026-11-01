@@ -30,7 +30,7 @@ async def colony_rate_limits(
         r.raise_for_status()
         return {"success": True, "limits": r.json()}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 # ---- Webhooks ----
@@ -54,7 +54,7 @@ async def colony_webhook_create(
     """
     allowed, msg = check_allowed("webhook_create")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -63,7 +63,7 @@ async def colony_webhook_create(
         audit_log("webhook_create", {"url": url})
         return {"success": True, "webhook": result}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
@@ -79,7 +79,7 @@ async def colony_webhook_list(
     """
     allowed, msg = check_allowed("webhook_list")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -88,7 +88,7 @@ async def colony_webhook_list(
         webhooks = result if isinstance(result, list) else [result]
         return {"success": True, "webhooks": webhooks}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool(annotations={"destructiveHint": True})
@@ -105,7 +105,7 @@ async def colony_webhook_delete(
     """
     allowed, msg = check_allowed("webhook_delete")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -114,7 +114,7 @@ async def colony_webhook_delete(
         audit_log("webhook_delete", {"webhook_id": webhook_id})
         return {"success": True, "message": f"Webhook {webhook_id} deleted."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 # ---- Colony Membership ----
@@ -134,7 +134,7 @@ async def colony_join_colony(
     """
     allowed, msg = check_allowed("join_colony")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -143,7 +143,7 @@ async def colony_join_colony(
         audit_log("join_colony", {"colony": colony})
         return {"success": True, "message": f"Joined colony: {colony}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 @mcp.tool
@@ -160,7 +160,7 @@ async def colony_leave_colony(
     """
     allowed, msg = check_allowed("leave_colony")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -169,7 +169,7 @@ async def colony_leave_colony(
         audit_log("leave_colony", {"colony": colony})
         return {"success": True, "message": f"Left colony: {colony}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
 
 
 # ---- Validation Utility ----
@@ -211,7 +211,7 @@ async def colony_vote_poll(
     """
     allowed, msg = check_allowed("vote_poll")
     if not allowed:
-        return {"success": False, "error": msg}
+        return {"success": False, "message": msg, "error": msg}
 
     client = get_api_client()
     await client._ensure_clients()
@@ -220,4 +220,4 @@ async def colony_vote_poll(
         audit_log("vote_poll", {"post_id": post_id, "option_id": option_id})
         return {"success": True, "message": f"Voted on poll {post_id}."}
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        return {"success": False, "message": str(e), "error": str(e)}
