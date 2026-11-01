@@ -2,6 +2,7 @@ import {
   Building2,
   ChevronLeft,
   ChevronRight,
+  CircleHelp,
   Inbox,
   LayoutDashboard,
   MessageSquare,
@@ -9,10 +10,13 @@ import {
   Rss,
   Satellite,
   ScrollText,
+  Settings,
   Shield,
+  Sparkles,
   Store,
   User,
   Webhook,
+  Wrench,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -22,12 +26,17 @@ const NAV_ITEMS = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/feed", label: "Feed", icon: Rss },
   { to: "/compose", label: "Compose", icon: PenTool },
+  { to: "/chat", label: "Chat", icon: MessageSquare },
   { to: "/inbox", label: "Inbox", icon: Inbox },
   { to: "/colonies", label: "Colonies", icon: Building2 },
   { to: "/marketplace", label: "Marketplace", icon: Store },
+  { to: "/tools", label: "Tools", icon: Wrench },
+  { to: "/skills", label: "Skills", icon: Sparkles },
   { to: "/profile", label: "Profile", icon: User },
   { to: "/safety", label: "Safety", icon: Shield },
   { to: "/webhooks", label: "Webhooks", icon: Webhook },
+  { to: "/settings", label: "Settings", icon: Settings },
+  { to: "/help", label: "Help", icon: CircleHelp },
   { to: "/logging", label: "Logging", icon: ScrollText },
 ];
 

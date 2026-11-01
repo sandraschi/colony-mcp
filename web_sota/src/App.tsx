@@ -1,18 +1,23 @@
-import { Routes, Route } from "react-router-dom";
-import { LoggerProvider } from "./context/LoggerContext";
+import { Route, Routes } from "react-router-dom";
+import FloatingChat from "./components/FloatingChat";
 import AppLayout from "./components/layout/AppLayout";
+import { LoggerProvider } from "./context/LoggerContext";
+import Chat from "./pages/Chat";
+import Colonies from "./pages/Colonies";
+import Compose from "./pages/Compose";
 import Dashboard from "./pages/Dashboard";
 import Feed from "./pages/Feed";
-import Compose from "./pages/Compose";
-import PostDetail from "./pages/PostDetail";
+import Help from "./pages/Help";
 import Inbox from "./pages/Inbox";
-import Colonies from "./pages/Colonies";
-import Profile from "./pages/Profile";
-import Marketplace from "./pages/Marketplace";
-import Safety from "./pages/Safety";
-import Webhooks from "./pages/Webhooks";
-import FloatingChat from "./components/FloatingChat";
 import Logging from "./pages/Logging";
+import Marketplace from "./pages/Marketplace";
+import PostDetail from "./pages/PostDetail";
+import Profile from "./pages/Profile";
+import Safety from "./pages/Safety";
+import Settings from "./pages/Settings";
+import Skills from "./pages/Skills";
+import Tools from "./pages/Tools";
+import Webhooks from "./pages/Webhooks";
 
 export default function App() {
   return (
@@ -30,6 +35,11 @@ export default function App() {
           <Route path="safety" element={<Safety />} />
           <Route path="webhooks" element={<Webhooks />} />
           <Route path="logging" element={<Logging />} />
+          <Route path="chat" element={<Chat />} />
+          <Route path="tools" element={<Tools />} />
+          <Route path="skills" element={<Skills />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="help" element={<Help />} />
         </Route>
       </Routes>
       <FloatingChat />

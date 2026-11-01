@@ -1,7 +1,7 @@
+import { Activity, Shield } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { apiGet, type HealthResponse } from "@/api/client";
-import { Activity, Shield } from "lucide-react";
 
 const PAGE_TITLES: Record<string, { title: string; subtitle: string }> = {
   "/": { title: "Dashboard", subtitle: "Colony activity overview" },
@@ -13,6 +13,12 @@ const PAGE_TITLES: Record<string, { title: string; subtitle: string }> = {
   "/marketplace": { title: "Marketplace", subtitle: "Documents, tasks, and bounties" },
   "/safety": { title: "Safety Panel", subtitle: "Permission tiers and audit log" },
   "/webhooks": { title: "Webhooks", subtitle: "Real-time event subscriptions" },
+  "/chat": { title: "Chat", subtitle: "Talk to a local model about the colony" },
+  "/tools": { title: "Tools", subtitle: "MCP tool catalog" },
+  "/skills": { title: "Skills", subtitle: "Agent skill packs" },
+  "/settings": { title: "Settings", subtitle: "LLM providers and models" },
+  "/help": { title: "Help", subtitle: "Docs and troubleshooting" },
+  "/logging": { title: "Logging", subtitle: "Log ring buffer" },
 };
 
 export default function TopBar() {
@@ -24,38 +30,63 @@ export default function TopBar() {
   const page = PAGE_TITLES[pagePath] || PAGE_TITLES["/"];
 
   useEffect(() => {
+    let cancelled = false;
+    let unlisten: (() => void) | undefined;
     const poll = async () => {
       try {
         const h = await apiGet<HealthResponse>("/api/health");
-        setHealth(h);
-        setSafetyMode(h.safety_mode || "spectator");
+        if (!cancelled) {
+          setHealth(h);
+          setSafetyMode(h.safety_mode || "spectator");
+        }
       } catch {
-        setHealth(null);
+        if (!cancelled) setHealth(null);
       }
     };
+    // Tauri backend-status event when running inside the native shell;
+    // plain HTTP polling covers every other host.
+    (async () => {
+      try {
+        const { listen } = await import("@tauri-apps/api/event");
+        if (cancelled) return;
+        unlisten = await listen<string>("backend-status", (event) => {
+          if (event.payload === "ready") poll();
+        });
+      } catch {
+        // not under Tauri - HTTP polling is the fallback
+      }
+    })();
     poll();
     const interval = setInterval(poll, 15_000);
-    return () => clearInterval(interval);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+      if (unlisten) unlisten();
+    };
   }, []);
 
-  const tierColor = safetyMode === "operator" ? "text-accent" : safetyMode === "contributor" ? "text-primary" : "text-foreground/50";
+  const tierColor =
+    safetyMode === "operator" ? "text-accent" : safetyMode === "contributor" ? "text-primary" : "text-foreground/50";
 
   return (
     <header className="sticky top-0 z-40 glass border-b border-border/60 px-4 md:px-6 py-3 mb-0">
       <div>
         <h1 className="text-lg font-bold text-foreground tracking-tight">{page.title}</h1>
-        <p className="text-xs text-foreground/50">{page.subtitle}</p>
+        <p className="text-sm text-foreground/50">{page.subtitle}</p>
       </div>
       <div className="flex items-center gap-3 mt-2">
         {/* Health badge */}
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card/70 border border-border/40">
           <Activity className={cn("w-3 h-3", health ? "text-success" : "text-destructive")} />
-          <span className="text-[10px] font-medium text-foreground/60">
-            {health ? "API OK" : "API Offline"}
-          </span>
+          <span className="text-[10px] font-medium text-foreground/60">{health ? "API OK" : "API Offline"}</span>
         </div>
         {/* Safety tier badge */}
-        <div className={cn("flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card/70 border border-border/40", tierColor)}>
+        <div
+          className={cn(
+            "flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card/70 border border-border/40",
+            tierColor,
+          )}
+        >
           <Shield className="w-3 h-3" />
           <span className="text-[10px] font-medium capitalize">{safetyMode}</span>
         </div>
