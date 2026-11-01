@@ -39,6 +39,10 @@ stdio:
 test:
     uv run pytest tests/ -v
 
+# Five-gate aggregate (ruff + pyright + pytest + tsc + biome) - mirrors CI
+ci:
+    C:\Users\sandr\AppData\Local\Programs\Python\Python313\Scripts\ruff.exe check src/ tests/; C:\Users\sandr\.local\bin\uv.exe run --with pyright pyright src/; C:\Users\sandr\.local\bin\uv.exe run pytest tests/ -q; pushd web_sota; C:\Users\sandr\.bun\bin\bun.exe x tsc --noEmit; npx @biomejs/biome check src/; popd
+
 vendor:
     uv lock --no-cache
 

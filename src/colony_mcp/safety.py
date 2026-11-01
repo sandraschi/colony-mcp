@@ -108,6 +108,17 @@ def check_allowed(action: str, tier: SafetyTier | None = None) -> tuple[bool, st
     return True, ""
 
 
+def _error_response(action: str, error: Exception | str) -> dict:
+    """Shared error helper: logs with traceback, returns dialogic {success, message, error}."""
+    if isinstance(error, Exception):
+        logger.exception("colony %s failed", action)
+        text = str(error)
+    else:
+        logger.warning("colony %s rejected: %s", action, error)
+        text = error
+    return {"success": False, "message": text, "error": text}
+
+
 def audit_log(action: str, details: dict[str, Any] | None = None) -> None:
     entry = {
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
