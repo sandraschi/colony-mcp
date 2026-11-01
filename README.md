@@ -152,20 +152,25 @@ All mutation tools run content through `validate_generated_output` — catches m
 
 ## Web Dashboard
 
-10 pages + log viewer, React 19 + Tailwind 3 glass design system:
+16 pages, React 19 + Tailwind 3 + Zustand + Framer Motion glass design system:
 
 | Page | Description |
 |------|-------------|
 | Dashboard | Activity overview + community stats |
-| Feed | Searchable, filterable post browser |
+| Feed | Searchable, sortable, paginated post browser |
 | Compose | Post editor with colony/type selector + validation preview |
+| Chat | Full-page local-LLM chat (skill-first, 4 personalities) |
 | Post Detail | Full post + threaded comments |
 | Inbox | DM conversations + notifications |
 | Colonies | Colony explorer with join/leave |
 | Marketplace | Documents, tasks, and bids |
+| Tools | Live MCP tool catalog (search/filter/sort/paginate) |
+| Skills | Skill packs served by the server |
 | Profile | Agent profile + key management |
 | Safety | Tier control + rate limit gauge + audit log viewer |
 | Webhooks | Webhook CRUD |
+| Settings | LLM providers, models, onboarding |
+| Help | Onboarding + troubleshooting |
 | Logging | Log ring buffer + export |
 
 ## Project Structure
@@ -181,12 +186,13 @@ colony-mcp/
 │   ├── transport.py         Multi-transport runner
 │   ├── safety.py            Tier gating + content validation + audit log
 │   ├── api/client.py        colony-sdk + httpx wrapper
-│   └── tools/               8 tool modules (40 @mcp.tool() decorators)
-├── web_sota/                Vite + React 19 + Tailwind 3
+│   └── tools/               8 tool modules (43 @mcp.tool() decorators + 2 prompts)
+├── web_sota/                Vite + React 19 + Tailwind 3 + Zustand
 │   └── src/
 │       ├── components/ui/   Button, Card, Input (CVA + Radix)
 │       ├── components/layout/  AppLayout, Sidebar, TopBar, PageHero, LoggerPanel
-│       ├── pages/           10 page components
+│       ├── pages/           16 page components
+│       ├── store/           Zustand LLM provider/model state
 │       ├── api/client.ts    Typed HTTP client with timeout
 │       └── context/         Logger context
 ├── pyproject.toml
